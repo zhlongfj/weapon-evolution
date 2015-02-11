@@ -23,11 +23,11 @@ public class GameProcessor {
             player2.attack(player1);
         }
 
-        if (player1.canAttack()) {
+        if (!player1.canAttack()) {
             out.println(player1.getName() + "被打败了");
         }
 
-        if (player2.canAttack()) {
+        if (!player2.canAttack()) {
             out.println(player2.getName() + "被打败了");
         }
     }
