@@ -3,10 +3,10 @@ package weapon;
 /**
  * Created by zhl on 15/2/12.
  */
-public class NoWeapon implements Weapon {
+public class PoisonSword implements Weapon {
     @Override
     public String getName() {
-        return "";
+        return "用毒剑";
     }
 
     @Override
@@ -16,6 +16,6 @@ public class NoWeapon implements Weapon {
 
     @Override
     public String retrieveExtraAttackString(String name) {
-        return "";
+        return name + "中毒了,";
     }
 }

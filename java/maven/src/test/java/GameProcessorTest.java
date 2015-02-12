@@ -1,3 +1,4 @@
+import armor.Armor;
 import armor.NoArmor;
 import armor.SoldierArmor;
 import org.junit.Before;
@@ -7,6 +8,7 @@ import player.OrdinaryPlayer;
 import player.Player;
 import player.Soldier;
 import weapon.NoWeapon;
+import weapon.PoisonSword;
 import weapon.Stick;
 import weapon.Weapon;
 
@@ -23,11 +25,15 @@ public class GameProcessorTest {
     private PrintStream out;
     private GameProcessor game;
     private Weapon stick;
+    private Armor armor;
+    private Weapon noWeapon;
 
     @Before
     public void setUp() throws Exception {
         out = mock(PrintStream.class);
         stick = new Stick();
+        armor = new SoldierArmor("铠甲", 4);
+        noWeapon = new NoWeapon();
     }
 
     @Test
@@ -133,7 +139,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_ordinary_attack_armored_soldier() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
-        Player player2 = new Soldier(out, "李四", 20, 9, stick, new SoldierArmor("铠甲", 4));
+        Player player2 = new Soldier(out, "李四", 20, 9, stick, armor);
 
         player1.attack(player2);
 
@@ -173,7 +179,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_used_weapon_soldier_attack_armored_soldier() {
         Player player1 = new Soldier(out, "李四", 20, 9, stick, new NoArmor());
-        Player player2 = new Soldier(out, "张三", 10, 8, stick, new SoldierArmor("铠甲", 4));
+        Player player2 = new Soldier(out, "张三", 10, 8, stick, armor);
 
         player1.attack(player2);
 
@@ -203,7 +209,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_not_used_weapon_soldier_attack_armored_soldier() {
         Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new NoArmor());
-        Player player2 = new Soldier(out, "张三", 10, 8, stick, new SoldierArmor("铠甲", 4));
+        Player player2 = new Soldier(out, "张三", 10, 8, stick, armor);
 
         player1.attack(player2);
 
@@ -230,10 +236,21 @@ public class GameProcessorTest {
     @Test
     public void should_return_attacked_point_is_zero_when_defence_point_is_more_than_attacked_point() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 3);
-        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new SoldierArmor("铠甲", 4));
+        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(), armor);
 
         player1.attack(player2);
 
         verify(out).println("普通人张三攻击了战士李四,李四受到了0点伤害,李四剩余生命:20");
+    }
+
+    @Test
+    public void should_print_attacked_player_is_poison_when_attack_player_use_poison_sword() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);;
+
+        player1.attack(player2);
+
+        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了8点伤害,李四中毒了,李四剩余生命:12");
+
     }
 }

@@ -21,4 +21,9 @@ public class Stick implements Weapon {
     public int retrieveAttackPoint(int sourceAttackPoint) {
         return sourceAttackPoint + attackPoint;
     }
+
+    @Override
+    public String retrieveExtraAttackString(String name) {
+        return "";
+    }
 }

@@ -22,12 +22,6 @@ public class OrdinaryPlayer extends Player {
     }
 
     @Override
-    public void attack(Player player2) {
-        player2.reduceHealthPoint(getAttackPoint());
-        out.println(retrieveAttackString(player2) + player2.retrieveAttackedString());
-    }
-
-    @Override
     public void reduceHealthPoint(int attackedPoint) {
         this.harmPoint = attackedPoint;
         healthPoint -= attackedPoint;
@@ -44,8 +38,7 @@ public class OrdinaryPlayer extends Player {
     }
 
     @Override
-    protected String retrieveAttackedString() {
-        return name + "受到了" + harmPoint + "点伤害,"
-                + name + "剩余生命:" + healthPoint;
+    protected String retrieveExtraAttackString(String name) {
+        return "";
     }
 }
