@@ -28,9 +28,7 @@ public class Soldier extends Player {
     @Override
     public void attack(Player player2) {
         player2.reduceHealthPoint(getAttackPoint());
-        out.println(profession + name + weapon.getName() + "攻击了" + player2.getProfession() + player2.getName() + ","
-                + player2.getName() + "受到了" + player2.getHarmPoint() + "点伤害,"
-                + player2.getName() + "剩余生命:" + player2.getHealthPoint());
+        out.println(retrieveAttackString(player2) + player2.retrieveAttackedString());
     }
 
     @Override
@@ -42,6 +40,16 @@ public class Soldier extends Player {
     @Override
     protected int getAttackPoint() {
         return weapon.retrieveAttackPoint(attackPoint);
+    }
+    @Override
+    protected String retrieveAttackString(Player player) {
+        return getNameWithProfession() + weapon.getName() + "攻击了" + player.getNameWithProfession() + ",";
+    }
+
+    @Override
+    protected String retrieveAttackedString() {
+        return name + "受到了" + harmPoint + "点伤害,"
+                + name + "剩余生命:" + healthPoint;
     }
 
     private int retrieveHarmPoint(int harmPoint) {

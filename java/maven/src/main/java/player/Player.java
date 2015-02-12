@@ -24,6 +24,10 @@ public abstract class Player {
         return profession;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getNameWithProfession() {
         return profession + name;
     }

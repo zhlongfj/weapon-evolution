@@ -40,7 +40,7 @@ public class OrdinaryPlayer extends Player {
 
     @Override
     protected String retrieveAttackString(Player player) {
-        return getNameWithProfession() + "攻击了" + player.getProfession() + player.getNameWithProfession() + ",";
+        return getNameWithProfession() + "攻击了" + player.getNameWithProfession() + ",";
     }
 
     @Override
