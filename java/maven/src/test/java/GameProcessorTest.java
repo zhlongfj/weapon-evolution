@@ -289,4 +289,14 @@ public class GameProcessorTest {
         verify(out).println("李四受到2点火焰伤害,李四剩余生命:10");
 
     }
+
+    @Test
+    public void should_print_attacked_player_is_frozen_when_attack_player_use_ice_sword() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new IceSword(), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
+
+        player1.attack(player2);
+
+        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:12");
+    }
 }
