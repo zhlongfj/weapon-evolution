@@ -31,6 +31,11 @@ public class Soldier extends Player {
         healthPoint -= this.attackedPoint;
     }
 
+    @Override
+    protected int getAttackPoint() {
+        return attackPoint + weapon.getAttackPoint();
+    }
+
     private void calculateAttackedPoint(int attackedPoint) {
         this.attackedPoint = attackedPoint - armor.getDefence();
     }

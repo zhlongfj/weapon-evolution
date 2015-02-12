@@ -7,8 +7,12 @@ import java.io.PrintStream;
  */
 public class OrdinaryPlayer extends Player {
 
+    private int attackPoint;
+
     public OrdinaryPlayer(PrintStream out, String name, int healthPoint, int attackPoint) {
         super(out, name, healthPoint, attackPoint);
+        this.attackPoint = attackPoint;
+
         profession = "普通人";
     }
 
@@ -21,5 +25,10 @@ public class OrdinaryPlayer extends Player {
     public void reduceHealthPoint(int attackedPoint) {
         this.attackedPoint = attackedPoint;
         healthPoint -= attackedPoint;
+    }
+
+    @Override
+    protected int getAttackPoint() {
+        return attackPoint;
     }
 }
