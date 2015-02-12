@@ -127,6 +127,16 @@ public class GameProcessorTest {
         verify(out).println("战士李四攻击了战士张三,张三受到了13点伤害,张三剩余生命:-3");
     }
 
+    @Test
+    public void should_print_used_weapon_soldier_attack_armored_soldier() {
+        Player player1 = new Soldier(out, "李四", 20, 9, new Weapon("优质木棒", 4), new NoArmor());
+        Player player2 = new Soldier(out, "张三", 10, 8, new Weapon("优质木棒", 4), new SoldierArmor("铠甲", 4));
+
+        player1.attack(player2);
+
+        verify(out).println("战士李四攻击了战士张三,张三受到了9点伤害,张三剩余生命:1");
+    }
+
     @Ignore
     public void should_print_zhangsan_is_defeated_process() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
