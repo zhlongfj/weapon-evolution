@@ -74,7 +74,16 @@ public class GameProcessorTest {
         verify(out).println("李四被打败了");
     }
 
-    
+    @Test
+    public void should_print_ordinary_attack_ordinary() {
+        Player player1 = new Player(out, "张三", 10, 8);
+        Player player2 = new Player(out, "李四", 20, 9);
+
+        player1.attack(player2);
+
+        verify(out).println("普通人张三攻击了普通人李四,李四受到了8点伤害,李四剩余生命:12");
+    }
+
     @Ignore
     public void should_print_zhangsan_is_defeated_process() {
         Player player1 = new Player(out, "张三", 10, 8);
