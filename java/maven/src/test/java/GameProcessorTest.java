@@ -7,7 +7,7 @@ import player.OrdinaryPlayer;
 import player.Player;
 import player.Soldier;
 import weapon.NoWeapon;
-import weapon.SoldierWeapon;
+import weapon.Stick;
 
 import java.io.PrintStream;
 
@@ -130,7 +130,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_ordinary_attack_armored_soldier() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
-        Player player2 = new Soldier(out, "李四", 20, 9, new SoldierWeapon("优质木棒", 4), new SoldierArmor("铠甲", 4));
+        Player player2 = new Soldier(out, "李四", 20, 9, new Stick("优质木棒", 4), new SoldierArmor("铠甲", 4));
 
         player1.attack(player2);
 
@@ -140,7 +140,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_ordinary_attack_not_armored_soldier() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
-        Player player2 = new Soldier(out, "李四", 20, 9, new SoldierWeapon("优质木棒", 4), new NoArmor());
+        Player player2 = new Soldier(out, "李四", 20, 9, new Stick("优质木棒", 4), new NoArmor());
 
         player1.attack(player2);
 
@@ -149,7 +149,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_used_weapon_soldier_attack_ordinary_player() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new SoldierWeapon("优质木棒", 4), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new Stick("优质木棒", 4), new NoArmor());
         Player player2 = new OrdinaryPlayer(out, "张三", 10, 8);
 
         player1.attack(player2);
@@ -159,8 +159,8 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_used_weapon_soldier_attack_not_armored_soldier() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new SoldierWeapon("优质木棒", 4), new NoArmor());
-        Player player2 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("优质木棒", 4), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new Stick("优质木棒", 4), new NoArmor());
+        Player player2 = new Soldier(out, "张三", 10, 8, new Stick("优质木棒", 4), new NoArmor());
 
         player1.attack(player2);
 
@@ -169,8 +169,8 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_used_weapon_soldier_attack_armored_soldier() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new SoldierWeapon("优质木棒", 4), new NoArmor());
-        Player player2 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("优质木棒", 4), new SoldierArmor("铠甲", 4));
+        Player player1 = new Soldier(out, "李四", 20, 9, new Stick("优质木棒", 4), new NoArmor());
+        Player player2 = new Soldier(out, "张三", 10, 8, new Stick("优质木棒", 4), new SoldierArmor("铠甲", 4));
 
         player1.attack(player2);
 
@@ -190,7 +190,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_not_used_weapon_soldier_attack_not_armored_soldier() {
         Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new NoArmor());
-        Player player2 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("优质木棒", 4), new NoArmor());
+        Player player2 = new Soldier(out, "张三", 10, 8, new Stick("优质木棒", 4), new NoArmor());
 
         player1.attack(player2);
 
@@ -200,7 +200,7 @@ public class GameProcessorTest {
     @Test
     public void should_print_not_used_weapon_soldier_attack_armored_soldier() {
         Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new NoArmor());
-        Player player2 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("优质木棒", 4), new SoldierArmor("铠甲", 4));
+        Player player2 = new Soldier(out, "张三", 10, 8, new Stick("优质木棒", 4), new SoldierArmor("铠甲", 4));
 
         player1.attack(player2);
 
