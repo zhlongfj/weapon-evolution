@@ -20,7 +20,10 @@ public class GameProcessor {
     public void start() {
         while (player1.canAttack() && player2.canAttack()) {
             player1.attack(player2);
-            player2.attack(player1);
+
+            if (player2.canAttack()) {
+                player2.attack(player1);
+            }
         }
 
         if (!player1.canAttack()) {

@@ -207,4 +207,20 @@ public class GameProcessorTest {
         verify(out).println("战士李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:5");
     }
 
+    @Test
+    public void should_player_not_attack_when_player_can_not_attack() {
+        Player player1 = mock(Player.class);
+        Player player2 = mock(Player.class);
+        game = new GameProcessor(out, player1, player2);
+        given(player2.getName()).willReturn("李四");
+        given(player1.canAttack()).willReturn(true);
+        given(player2.canAttack()).willReturn(true, false);
+
+        game.start();
+
+        InOrder inOrder = inOrder(player1, player2, out);
+        inOrder.verify(player1).attack(player2);
+        inOrder.verify(player2, never()).attack(player1);
+        inOrder.verify(out).println("李四被打败了");
+    }
 }
