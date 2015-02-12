@@ -1,4 +1,5 @@
-import armor.Armor;
+import armor.SoldierArmor;
+import armor.NoArmor;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,9 +12,7 @@ import weapon.Weapon;
 import java.io.PrintStream;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by zhl on 15/2/11.
@@ -91,11 +90,21 @@ public class GameProcessorTest {
     @Test
     public void should_print_ordinary_attack_armored_soldier() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
-        Player player2 = new Soldier(out, "李四", 20, 9, new Weapon("优质木棒", 4), new Armor("铠甲", 4));
+        Player player2 = new Soldier(out, "李四", 20, 9, new Weapon("优质木棒", 4), new SoldierArmor("铠甲", 4));
 
         player1.attack(player2);
 
         verify(out).println("普通人张三攻击了战士李四,李四受到了4点伤害,李四剩余生命:16");
+    }
+
+    @Test
+    public void should_print_ordinary_attack_not_armored_soldier() {
+        Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
+        Player player2 = new Soldier(out, "李四", 20, 9, new Weapon("优质木棒", 4), new NoArmor());
+
+        player1.attack(player2);
+
+        verify(out).println("普通人张三攻击了战士李四,李四受到了8点伤害,李四剩余生命:12");
     }
 
     @Ignore
