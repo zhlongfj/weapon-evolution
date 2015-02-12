@@ -3,36 +3,36 @@ package weapon;
 /**
  * Created by zhl on 15/2/12.
  */
-public class Stick implements Weapon {
-    private String name;
-    private int attackPoint;
+public class FireSword implements Weapon {
 
-    public Stick() {
-        this.attackPoint = 4;
+    private final int extraHarm;
+
+    public FireSword() {
+        extraHarm = 2;
     }
 
     @Override
     public String getName() {
-        return "用优质木棒";
+        return "用火焰剑";
     }
 
     @Override
     public int retrieveAttackPoint(int sourceAttackPoint) {
-        return sourceAttackPoint + attackPoint;
+        return sourceAttackPoint;
     }
 
     @Override
     public String retrieveExtraAttackString(String name) {
-        return "";
+        return name + "着火了,";
     }
 
     @Override
     public int retrieveExtraAttackPointWhenAttack(int healthPoint) {
-        return 0;
+        return healthPoint - extraHarm;
     }
 
     @Override
     public String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
-        return "";
+        return name + "受到" + extraHarm + "点火焰伤害," + name + "剩余生命:" + healthPoint;
     }
 }
