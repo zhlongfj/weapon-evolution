@@ -26,17 +26,17 @@ public class Soldier extends Player {
     }
 
     @Override
-    public void reduceHealthPoint(int attackedPoint) {
-        calculateAttackedPoint(attackedPoint);
-        healthPoint -= this.attackedPoint;
+    public void reduceHealthPoint(int harmPoint) {
+        this.harmPoint = retrieveHarmPoint(harmPoint);
+        healthPoint -= this.harmPoint;
     }
 
     @Override
     protected int getAttackPoint() {
-        return attackPoint + weapon.getAttackPoint();
+        return weapon.retrieveAttackPoint(attackPoint);
     }
 
-    private void calculateAttackedPoint(int attackedPoint) {
-        this.attackedPoint = attackedPoint - armor.getDefence();
+    private int retrieveHarmPoint(int harmPoint) {
+        return armor.retrieveHarmPoint(harmPoint);
     }
 }

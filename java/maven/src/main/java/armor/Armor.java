@@ -6,5 +6,5 @@ package armor;
 public interface Armor {
     public String getName();
 
-    public int getDefence();
+    public int retrieveHarmPoint(int attackedPoint);
 }

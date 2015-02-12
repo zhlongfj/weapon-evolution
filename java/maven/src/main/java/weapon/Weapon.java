@@ -5,5 +5,5 @@ package weapon;
  */
 public interface Weapon {
     public String getName();
-    public int getAttackPoint();
+    public int retrieveAttackPoint(int sourceAttackPoint);
 }

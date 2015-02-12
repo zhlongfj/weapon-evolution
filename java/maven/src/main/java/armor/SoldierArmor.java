@@ -5,18 +5,19 @@ package armor;
  */
 public class SoldierArmor implements Armor{
     private String name;
-    private int defence;
+    private int defencePoint;
 
-    public SoldierArmor(String name, int defence) {
+    public SoldierArmor(String name, int defencePoint) {
         this.name = name;
-        this.defence = defence;
+        this.defencePoint = defencePoint;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getDefence() {
-        return defence;
+    public int retrieveHarmPoint(int attackedPoint) {
+        int harmPoint = attackedPoint - defencePoint;
+        return harmPoint > 0 ? harmPoint : 0;
     }
 }

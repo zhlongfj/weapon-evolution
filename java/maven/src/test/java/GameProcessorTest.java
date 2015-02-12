@@ -103,7 +103,7 @@ public class GameProcessorTest {
         game = new GameProcessor(out, player1, player2);
 
         given(player1.canAttack()).willReturn(true);
-        given(player2.canAttack()).willReturn(true, true, true, false);
+        given(player2.canAttack()).willReturn(true, true, true, true, true, true, false);
         given(player2.getName()).willReturn("李四");
         game.start();
 
@@ -222,5 +222,15 @@ public class GameProcessorTest {
         inOrder.verify(player1).attack(player2);
         inOrder.verify(player2, never()).attack(player1);
         inOrder.verify(out).println("李四被打败了");
+    }
+
+    @Test
+    public void should_return_attacked_point_is_zero_when_defence_point_is_more_than_attacked_point() {
+        Player player1 = new OrdinaryPlayer(out, "张三", 10, 3);
+        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new SoldierArmor("铠甲", 4));
+
+        player1.attack(player2);
+
+        verify(out).println("普通人张三攻击了战士李四,李四受到了0点伤害,李四剩余生命:20");
     }
 }

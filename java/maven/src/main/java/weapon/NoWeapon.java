@@ -10,7 +10,7 @@ public class NoWeapon implements Weapon {
     }
 
     @Override
-    public int getAttackPoint() {
-        return 0;
+    public int retrieveAttackPoint(int sourceAttackPoint) {
+        return sourceAttackPoint;
     }
 }

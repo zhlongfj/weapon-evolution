@@ -18,7 +18,7 @@ public class SoldierWeapon implements Weapon {
     }
 
     @Override
-    public int getAttackPoint() {
-        return attackPoint;
+    public int retrieveAttackPoint(int sourceAttackPoint) {
+        return sourceAttackPoint + attackPoint;
     }
 }

@@ -23,7 +23,7 @@ public class OrdinaryPlayer extends Player {
 
     @Override
     public void reduceHealthPoint(int attackedPoint) {
-        this.attackedPoint = attackedPoint;
+        this.harmPoint = attackedPoint;
         healthPoint -= attackedPoint;
     }
 

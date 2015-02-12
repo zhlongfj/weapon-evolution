@@ -11,7 +11,7 @@ public abstract class Player {
     private String name;
     protected int healthPoint;
     protected int attackPoint;
-    protected int attackedPoint;
+    protected int harmPoint;
 
     public Player(PrintStream out, String name, int healthPoint, int attackPoint) {
         this.out = out;
@@ -32,14 +32,14 @@ public abstract class Player {
         return healthPoint;
     }
 
-    public int getAttackedPoint() {
-        return attackedPoint;
+    public int getHarmPoint() {
+        return harmPoint;
     }
 
     public void attack(Player player2) {
         player2.reduceHealthPoint(getAttackPoint());
         out.println(profession + name + "攻击了" + player2.getProfession() + player2.getName() + ","
-                + player2.getName() + "受到了" + player2.getAttackedPoint() + "点伤害,"
+                + player2.getName() + "受到了" + player2.getHarmPoint() + "点伤害,"
                 + player2.getName() + "剩余生命:" + player2.getHealthPoint());
     }
 

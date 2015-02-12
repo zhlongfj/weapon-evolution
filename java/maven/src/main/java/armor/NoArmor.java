@@ -8,7 +8,7 @@ public class NoArmor implements Armor{
         return "";
     }
 
-    public int getDefence() {
-        return 0;
+    public int retrieveHarmPoint(int attackedPoint) {
+        return attackedPoint;
     }
 }
