@@ -46,6 +46,16 @@ public class Soldier extends Player {
         return weapon.retrieveExtraAttackString(name);
     }
 
+    @Override
+    protected int retrieveExtraAttackPointWhenAttack(int healthPoint) {
+        return weapon.retrieveExtraAttackPointWhenAttack(healthPoint);
+    }
+
+    @Override
+    protected String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
+        return weapon.retrieveExtraAttackStringWhenAttack(name, healthPoint);
+    }
+
     private int retrieveHarmPoint(int harmPoint) {
         return armor.retrieveHarmPoint(harmPoint);
     }

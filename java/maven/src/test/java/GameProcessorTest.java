@@ -253,4 +253,18 @@ public class GameProcessorTest {
         verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了8点伤害,李四中毒了,李四剩余生命:12");
 
     }
+
+    @Test
+    public void should_print_harm_point_when_poisoned_player_attack() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);;
+
+        player1.attack(player2);
+        player2.attack(player1);
+
+        InOrder inOrder = inOrder(out);
+        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了8点伤害,李四中毒了,李四剩余生命:12");
+        verify(out).println("李四受到2点毒性伤害,李四剩余生命:10");
+
+    }
 }

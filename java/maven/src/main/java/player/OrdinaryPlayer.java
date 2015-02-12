@@ -41,4 +41,14 @@ public class OrdinaryPlayer extends Player {
     protected String retrieveExtraAttackString(String name) {
         return "";
     }
+
+    @Override
+    protected int retrieveExtraAttackPointWhenAttack(int healthPoint) {
+        return healthPoint;
+    }
+
+    @Override
+    protected String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
+        return "";
+    }
 }

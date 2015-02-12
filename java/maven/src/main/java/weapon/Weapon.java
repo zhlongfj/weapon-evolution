@@ -7,4 +7,6 @@ public interface Weapon {
     public String getName();
     public int retrieveAttackPoint(int sourceAttackPoint);
     public String retrieveExtraAttackString(String name);
+    public int retrieveExtraAttackPointWhenAttack(int healthPoint);
+    public String retrieveExtraAttackStringWhenAttack(String name, int healthPoint);
 }

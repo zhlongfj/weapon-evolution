@@ -25,6 +25,8 @@ public abstract class Player {
     }
 
     public void attack(Player player2) {
+        healthPoint = player2.retrieveExtraAttackPointWhenAttack(healthPoint);
+        out.println(player2.retrieveExtraAttackStringWhenAttack(name, healthPoint));
         player2.reduceHealthPoint(getAttackPoint());
         out.println(retrieveAttackString(player2) + retrieveAttackedPlayerHarmString(player2));
     }
@@ -55,5 +57,7 @@ public abstract class Player {
     protected abstract int getAttackPoint();
     protected abstract String retrieveAttackString(Player player);
     protected abstract String retrieveExtraAttackString(String name);
+    protected abstract int retrieveExtraAttackPointWhenAttack(int healthPoint);
+    protected abstract String retrieveExtraAttackStringWhenAttack(String name, int healthPoint);
 
 }

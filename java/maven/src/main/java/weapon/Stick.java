@@ -26,4 +26,14 @@ public class Stick implements Weapon {
     public String retrieveExtraAttackString(String name) {
         return "";
     }
+
+    @Override
+    public int retrieveExtraAttackPointWhenAttack(int healthPoint) {
+        return 0;
+    }
+
+    @Override
+    public String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
+        return "";
+    }
 }
