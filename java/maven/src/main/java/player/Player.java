@@ -38,7 +38,7 @@ public abstract class Player {
 
     public void attack(Player player2) {
         player2.reduceHealthPoint(getAttackPoint());
-        out.println(profession + name + "攻击了" + player2.getProfession() + player2.getName() + ","
+        out.println(profession + name + getExtraAttackString() + "攻击了" + player2.getProfession() + player2.getName() + ","
                 + player2.getName() + "受到了" + player2.getHarmPoint() + "点伤害,"
                 + player2.getName() + "剩余生命:" + player2.getHealthPoint());
     }
@@ -46,5 +46,6 @@ public abstract class Player {
     public abstract boolean canAttack();
     public abstract void reduceHealthPoint(int attackedPoint);
     protected abstract int getAttackPoint();
+    protected abstract String getExtraAttackString();
 
 }

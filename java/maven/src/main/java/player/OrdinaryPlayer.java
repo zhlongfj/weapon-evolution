@@ -31,4 +31,9 @@ public class OrdinaryPlayer extends Player {
     protected int getAttackPoint() {
         return attackPoint;
     }
+
+    @Override
+    protected String getExtraAttackString() {
+        return "";
+    }
 }

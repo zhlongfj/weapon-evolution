@@ -154,7 +154,7 @@ public class GameProcessorTest {
 
         player1.attack(player2);
 
-        verify(out).println("战士李四攻击了普通人张三,张三受到了13点伤害,张三剩余生命:-3");
+        verify(out).println("战士李四用优质木棒攻击了普通人张三,张三受到了13点伤害,张三剩余生命:-3");
     }
 
     @Test
@@ -164,7 +164,7 @@ public class GameProcessorTest {
 
         player1.attack(player2);
 
-        verify(out).println("战士李四攻击了战士张三,张三受到了13点伤害,张三剩余生命:-3");
+        verify(out).println("战士李四用优质木棒攻击了战士张三,张三受到了13点伤害,张三剩余生命:-3");
     }
 
     @Test
@@ -174,7 +174,7 @@ public class GameProcessorTest {
 
         player1.attack(player2);
 
-        verify(out).println("战士李四攻击了战士张三,张三受到了9点伤害,张三剩余生命:1");
+        verify(out).println("战士李四用优质木棒攻击了战士张三,张三受到了9点伤害,张三剩余生命:1");
     }
 
     @Test

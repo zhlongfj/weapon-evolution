@@ -14,7 +14,7 @@ public class SoldierWeapon implements Weapon {
 
     @Override
     public String getName() {
-        return name;
+        return "用" + name;
     }
 
     @Override
