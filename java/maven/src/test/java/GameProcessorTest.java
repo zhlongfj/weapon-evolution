@@ -97,6 +97,27 @@ public class GameProcessorTest {
     }
 
     @Test
+    public void should_print_lisi_is_defeated_process() {
+        Player player1 = mock(Player.class);
+        Player player2 = mock(Player.class);
+        game = new GameProcessor(out, player1, player2);
+
+        given(player1.canAttack()).willReturn(true);
+        given(player2.canAttack()).willReturn(true, true, true, false);
+        given(player2.getName()).willReturn("李四");
+        game.start();
+
+        InOrder inOrder = inOrder(player1, player2, out);
+        inOrder.verify(player1).attack(player2);
+        inOrder.verify(player2).attack(player1);
+        inOrder.verify(player1).attack(player2);
+        inOrder.verify(player2).attack(player1);
+        inOrder.verify(player1).attack(player2);
+        inOrder.verify(player2).attack(player1);
+        inOrder.verify(out).println("李四被打败了");
+    }
+
+    @Test
     public void should_print_ordinary_attack_ordinary() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
