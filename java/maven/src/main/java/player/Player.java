@@ -6,9 +6,9 @@ import java.io.PrintStream;
  * Created by zhl on 15/2/12.
  */
 public abstract class Player {
-    private PrintStream out;
+    protected PrintStream out;
     protected String profession;
-    private String name;
+    protected String name;
     protected int healthPoint;
     protected int attackPoint;
     protected int harmPoint;
@@ -36,16 +36,9 @@ public abstract class Player {
         return harmPoint;
     }
 
-    public void attack(Player player2) {
-        player2.reduceHealthPoint(getAttackPoint());
-        out.println(profession + name + getExtraAttackString() + "攻击了" + player2.getProfession() + player2.getName() + ","
-                + player2.getName() + "受到了" + player2.getHarmPoint() + "点伤害,"
-                + player2.getName() + "剩余生命:" + player2.getHealthPoint());
-    }
-
+    public abstract void attack(Player player2);
     public abstract boolean canAttack();
     public abstract void reduceHealthPoint(int attackedPoint);
     protected abstract int getAttackPoint();
-    protected abstract String getExtraAttackString();
 
 }
