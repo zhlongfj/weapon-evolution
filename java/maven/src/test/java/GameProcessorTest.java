@@ -1,6 +1,5 @@
 import armor.NoArmor;
 import armor.SoldierArmor;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -76,6 +75,25 @@ public class GameProcessorTest {
         game.start();
 
         verify(out).println("李四被打败了");
+    }
+
+    @Test
+    public void should_print_zhangsan_is_defeated_process() {
+        Player player1 = mock(Player.class);
+        Player player2 = mock(Player.class);
+        game = new GameProcessor(out, player1, player2);
+
+        given(player1.canAttack()).willReturn(true, true, false);
+        given(player2.canAttack()).willReturn(true);
+        given(player1.getName()).willReturn("张三");
+        game.start();
+
+        InOrder inOrder = inOrder(player1, player2, out);
+        inOrder.verify(player1).attack(player2);
+        inOrder.verify(player2).attack(player1);
+        inOrder.verify(player1).attack(player2);
+        inOrder.verify(player2).attack(player1);
+        inOrder.verify(out).println("张三被打败了");
     }
 
     @Test
@@ -166,21 +184,6 @@ public class GameProcessorTest {
         player1.attack(player2);
 
         verify(out).println("战士李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:5");
-    }
-    @Ignore
-    public void should_print_zhangsan_is_defeated_process() {
-        Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
-        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
-        game = new GameProcessor(out, player1, player2);
-
-        game.start();
-
-        InOrder inOrder = inOrder(out);
-        inOrder.verify(out).println("张三攻击了李四,李四受到了8点伤害,李四剩余生命：12");
-        inOrder.verify(out).println("李四攻击了张三,张三受到了9点伤害,张三剩余生命：1");
-        inOrder.verify(out).println("张三攻击了李四,李四受到了8点伤害,李四剩余生命：4");
-        inOrder.verify(out).println("李四攻击了张三,张三受到了9点伤害,张三剩余生命：-8");
-        inOrder.verify(out).println("张三被打败了");
     }
 
 }
