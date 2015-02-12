@@ -24,21 +24,15 @@ public abstract class Player {
         return profession;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getHealthPoint() {
-        return healthPoint;
-    }
-
-    public int getHarmPoint() {
-        return harmPoint;
+    public String getNameWithProfession() {
+        return profession + name;
     }
 
     public abstract void attack(Player player2);
     public abstract boolean canAttack();
     public abstract void reduceHealthPoint(int attackedPoint);
     protected abstract int getAttackPoint();
+    protected abstract String retrieveAttackString(Player player);
+    protected abstract String retrieveAttackedString();
 
 }
