@@ -5,16 +5,16 @@ import java.io.PrintStream;
 /**
  * Created by zhl on 15/2/12.
  */
-public class Player {
+public abstract class Player {
     private PrintStream out;
-    private String profession;
+    protected String profession;
     private String name;
-    private int healthPoint;
-    private int attackPoint;
+    protected int healthPoint;
+    protected int attackPoint;
+    protected int attackedPoint;
 
     public Player(PrintStream out, String name, int healthPoint, int attackPoint) {
         this.out = out;
-        this.profession = "普通人";
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPoint = attackPoint;
@@ -32,18 +32,18 @@ public class Player {
         return healthPoint;
     }
 
-    public boolean canAttack() {
-        return healthPoint > 0 ? true : false;
+    public int getAttackedPoint() {
+        return attackedPoint;
     }
 
     public void attack(Player player2) {
         player2.reduceHealthPoint(attackPoint);
         out.println(profession + name + "攻击了" + player2.getProfession() + player2.getName() + ","
-                + player2.getName() + "受到了" + attackPoint + "点伤害,"
+                + player2.getName() + "受到了" + player2.getAttackedPoint() + "点伤害,"
                 + player2.getName() + "剩余生命:" + player2.getHealthPoint());
     }
 
-    public void reduceHealthPoint(int attackedPoint) {
-        healthPoint -= attackedPoint;
-    }
+    public abstract boolean canAttack();
+
+    public abstract void reduceHealthPoint(int attackedPoint);
 }

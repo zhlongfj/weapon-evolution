@@ -1,8 +1,12 @@
+import armor.Armor;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
+import player.OrdinaryPlayer;
 import player.Player;
+import player.Soldier;
+import weapon.Weapon;
 
 import java.io.PrintStream;
 
@@ -26,8 +30,8 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_lisi_is_defeated() {
-        Player player1 = new Player(out, "张三", 20, 8);
-        Player player2 = new Player(out, "李四", 10, 9);
+        Player player1 = new OrdinaryPlayer(out, "张三", 20, 8);
+        Player player2 = new OrdinaryPlayer(out, "李四", 10, 9);
         game = new GameProcessor(out, player1, player2);
 
         game.start();
@@ -76,18 +80,28 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_ordinary_attack_ordinary() {
-        Player player1 = new Player(out, "张三", 10, 8);
-        Player player2 = new Player(out, "李四", 20, 9);
+        Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
 
         verify(out).println("普通人张三攻击了普通人李四,李四受到了8点伤害,李四剩余生命:12");
     }
 
+    @Test
+    public void should_print_ordinary_attack_armored_soldier() {
+        Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
+        Player player2 = new Soldier(out, "李四", 20, 9, new Weapon("优质木棒", 4), new Armor("铠甲", 4));
+
+        player1.attack(player2);
+
+        verify(out).println("普通人张三攻击了战士李四,李四受到了4点伤害,李四剩余生命:16");
+    }
+
     @Ignore
     public void should_print_zhangsan_is_defeated_process() {
-        Player player1 = new Player(out, "张三", 10, 8);
-        Player player2 = new Player(out, "李四", 20, 9);
+        Player player1 = new OrdinaryPlayer(out, "张三", 10, 8);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
         game = new GameProcessor(out, player1, player2);
 
         game.start();
