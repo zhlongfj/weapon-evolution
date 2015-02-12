@@ -7,9 +7,9 @@ public class Stick implements Weapon {
     private String name;
     private int attackPoint;
 
-    public Stick(String name, int attackPoint) {
-        this.name = name;
-        this.attackPoint = attackPoint;
+    public Stick() {
+        this.name = "优质木棒";
+        this.attackPoint = 4;
     }
 
     @Override
