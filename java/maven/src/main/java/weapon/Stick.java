@@ -19,18 +19,18 @@ public class Stick implements Weapon {
     }
 
     @Override
-    public int retrieveAttackPoint(int sourceAttackPoint) {
-        return sourceAttackPoint + attackPoint;
-    }
-
-    @Override
     public String getHarmDescription(Player player, int playerAttackPoint) {
-        return player.getName() + "受到了" + player.retrieveHarmPoint(retrieveAttackPoint(playerAttackPoint)) + "点伤害,"
+        return player.getName() + "受到了" + player.retrieveHarmPoint(playerAttackPoint + attackPoint) + "点伤害,"
                 + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 
     @Override
     public String harmDelay(Player player) {
         return "";
+    }
+
+    @Override
+    public void reduceHealthPoint(Player player, int playerAttackPoint) {
+        player.reduceHealthPoint(playerAttackPoint + attackPoint);
     }
 }

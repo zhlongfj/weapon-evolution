@@ -7,8 +7,8 @@ import player.Player;
  */
 public interface Weapon {
     public String getName();
-    public int retrieveAttackPoint(int sourceAttackPoint);
 
     public String getHarmDescription(Player player, int playerAttackPoint);
     public String harmDelay(Player player);
+    public void reduceHealthPoint(Player player, int playerAttackPoint);
 }

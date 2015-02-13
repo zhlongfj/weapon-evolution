@@ -11,7 +11,6 @@ public abstract class Player {
     protected String name;
     protected int healthPoint;
     protected int attackPoint;
-    protected int harmPoint;
 
     public Player(PrintStream out, String name, int healthPoint, int attackPoint) {
         this.out = out;
@@ -26,10 +25,6 @@ public abstract class Player {
         return healthPoint;
     }
 
-    public String getProfession() {
-        return profession;
-    }
-
     public String getName() {
         return name;
     }
@@ -40,10 +35,7 @@ public abstract class Player {
 
     public abstract boolean canAttack();
     public abstract void reduceHealthPoint(int attackedPoint);
-    protected abstract int getAttackPoint();
-    protected abstract String retrieveDescription(Player player);
     public abstract int retrieveHarmPoint(int harmPoint);
 
     public abstract void harmDelay(Player player);
-
 }

@@ -19,13 +19,8 @@ public class PoisonSword implements Weapon {
     }
 
     @Override
-    public int retrieveAttackPoint(int sourceAttackPoint) {
-        return sourceAttackPoint;
-    }
-
-    @Override
     public String getHarmDescription(Player player, int playerAttackPoint) {
-        return player.getName() + "受到了" + player.retrieveHarmPoint(retrieveAttackPoint(playerAttackPoint)) + "点伤害,"
+        return player.getName() + "受到了" + player.retrieveHarmPoint(playerAttackPoint) + "点伤害,"
                 + player.getName() + "中毒了," + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 
@@ -34,5 +29,10 @@ public class PoisonSword implements Weapon {
         player.reduceHealthPoint(extraHarm);
         return player.getName() + "受到" + extraHarm + "点毒性伤害,"
                 + player.getName() + "剩余生命:" + player.getHealthPoint();
+    }
+
+    @Override
+    public void reduceHealthPoint(Player player, int playerAttackPoint) {
+        player.reduceHealthPoint(playerAttackPoint);
     }
 }
