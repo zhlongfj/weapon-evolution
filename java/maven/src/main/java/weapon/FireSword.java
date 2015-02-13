@@ -1,5 +1,7 @@
 package weapon;
 
+import player.Player;
+
 /**
  * Created by zhl on 15/2/12.
  */
@@ -22,17 +24,15 @@ public class FireSword implements Weapon {
     }
 
     @Override
-    public String retrieveExtraAttackString(String name) {
-        return name + "着火了,";
+    public String getHarmDescription(Player player, int playerAttackPoint) {
+        return player.getName() + "受到了" + player.retrieveHarmPoint(retrieveAttackPoint(playerAttackPoint)) + "点伤害,"
+                + player.getName() + "着火了," + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 
     @Override
-    public int retrieveExtraAttackPointWhenAttack(int healthPoint) {
-        return healthPoint - extraHarm;
-    }
-
-    @Override
-    public String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
-        return name + "受到" + extraHarm + "点火焰伤害," + name + "剩余生命:" + healthPoint;
+    public String harmDelay(Player player) {
+        player.reduceHealthPoint(extraHarm);
+        return player.getName() + "受到" + extraHarm + "点火焰伤害,"
+                + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 }

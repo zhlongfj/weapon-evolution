@@ -1,7 +1,5 @@
 package player;
 
-import weapon.Weapon;
-
 import java.io.PrintStream;
 
 /**
@@ -13,7 +11,6 @@ public abstract class Player {
     protected String name;
     protected int healthPoint;
     protected int attackPoint;
-    private Weapon harmWeapon;
     protected int harmPoint;
 
     public Player(PrintStream out, String name, int healthPoint, int attackPoint) {
@@ -21,14 +18,12 @@ public abstract class Player {
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPoint = attackPoint;
-        this.harmWeapon = harmWeapon;
     }
 
-    public void attack(Player player2) {
-        healthPoint = player2.retrieveExtraAttackPointWhenAttack(healthPoint);
-        out.println(player2.retrieveExtraAttackStringWhenAttack(name, healthPoint));
-        player2.reduceHealthPoint(getAttackPoint());
-        out.println(retrieveAttackString(player2) + retrieveAttackedPlayerHarmString(player2));
+    public abstract void attack(Player player2);
+
+    public int getHealthPoint() {
+        return healthPoint;
     }
 
     public String getProfession() {
@@ -43,21 +38,12 @@ public abstract class Player {
         return profession + name;
     }
 
-    private String retrieveAttackedPlayerHarmString(Player player) {
-        return player.retrieveAttackedString(retrieveExtraAttackString(player.getName()));
-    }
-
-    protected String retrieveAttackedString(String harmString) {
-        return name + "受到了" + harmPoint + "点伤害,"
-               + harmString + name + "剩余生命:" + healthPoint;
-    }
-
     public abstract boolean canAttack();
     public abstract void reduceHealthPoint(int attackedPoint);
     protected abstract int getAttackPoint();
-    protected abstract String retrieveAttackString(Player player);
-    protected abstract String retrieveExtraAttackString(String name);
-    protected abstract int retrieveExtraAttackPointWhenAttack(int healthPoint);
-    protected abstract String retrieveExtraAttackStringWhenAttack(String name, int healthPoint);
+    protected abstract String retrieveDescription(Player player);
+    public abstract int retrieveHarmPoint(int harmPoint);
+
+    public abstract void harmDelay(Player player);
 
 }

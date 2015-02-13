@@ -1,14 +1,16 @@
 package weapon;
 
+import player.Player;
+
 /**
  * Created by zhl on 15/2/12.
  */
 public class IceSword implements Weapon {
 
-    private final int rounds;
+    private boolean frozen;
 
     public IceSword() {
-        rounds = 2;
+        frozen = false;
     }
 
     @Override
@@ -22,17 +24,13 @@ public class IceSword implements Weapon {
     }
 
     @Override
-    public String retrieveExtraAttackString(String name) {
-        return name + "冻僵了,";
+    public String getHarmDescription(Player player, int playerAttackPoint) {
+        return player.getName() + "受到了" + player.retrieveHarmPoint(retrieveAttackPoint(playerAttackPoint)) + "点伤害,"
+                + player.getName() + "冻僵了," + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 
     @Override
-    public int retrieveExtraAttackPointWhenAttack(int healthPoint) {
-        return healthPoint;
-    }
-
-    @Override
-    public String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
+    public String harmDelay(Player player) {
         return "";
     }
 }

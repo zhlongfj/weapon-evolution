@@ -33,22 +33,26 @@ public class OrdinaryPlayer extends Player {
     }
 
     @Override
-    protected String retrieveAttackString(Player player) {
-        return getNameWithProfession() + "攻击了" + player.getNameWithProfession() + ",";
+    protected String retrieveDescription(Player player) {
+        return getNameWithProfession() + "攻击了" + player.getNameWithProfession() + ","
+                + player.getName() + "受到了" + player.retrieveHarmPoint(attackPoint) + "点伤害,"
+                 + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 
     @Override
-    protected String retrieveExtraAttackString(String name) {
-        return "";
+    public int retrieveHarmPoint(int harmPoint) {
+        return harmPoint;
     }
 
     @Override
-    protected int retrieveExtraAttackPointWhenAttack(int healthPoint) {
-        return healthPoint;
+    public void attack(Player player2) {
+        player2.harmDelay(this);
+        player2.reduceHealthPoint(getAttackPoint());
+        out.println(retrieveDescription(player2));
     }
 
     @Override
-    protected String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
-        return "";
+    public void harmDelay(Player player) {
+        return ;
     }
 }

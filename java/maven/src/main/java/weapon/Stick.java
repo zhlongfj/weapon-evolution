@@ -1,5 +1,7 @@
 package weapon;
 
+import player.Player;
+
 /**
  * Created by zhl on 15/2/12.
  */
@@ -22,17 +24,13 @@ public class Stick implements Weapon {
     }
 
     @Override
-    public String retrieveExtraAttackString(String name) {
-        return "";
+    public String getHarmDescription(Player player, int playerAttackPoint) {
+        return player.getName() + "受到了" + player.retrieveHarmPoint(retrieveAttackPoint(playerAttackPoint)) + "点伤害,"
+                + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 
     @Override
-    public int retrieveExtraAttackPointWhenAttack(int healthPoint) {
-        return 0;
-    }
-
-    @Override
-    public String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
+    public String harmDelay(Player player) {
         return "";
     }
 }

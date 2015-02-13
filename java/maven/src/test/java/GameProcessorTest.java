@@ -1,6 +1,7 @@
 import armor.Armor;
 import armor.NoArmor;
 import armor.SoldierArmor;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -298,5 +299,19 @@ public class GameProcessorTest {
         player1.attack(player2);
 
         verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:12");
+    }
+
+    @Ignore
+    public void should_print_miss_when_frozen_player_attack() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new IceSword(), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
+
+        player1.attack(player2);
+        player2.attack(player1);
+
+        InOrder inOrder = inOrder(out);
+        verify(out).println("战士张三用火焰剑攻击了普通人李四,李四受到了8点伤害,李四着火了,李四剩余生命:12");
+        verify(out).println("李四受到2点火焰伤害,李四剩余生命:10");
+
     }
 }

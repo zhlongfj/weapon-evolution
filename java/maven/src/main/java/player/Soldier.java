@@ -37,26 +37,26 @@ public class Soldier extends Player {
     }
 
     @Override
-    protected String retrieveAttackString(Player player) {
-        return getNameWithProfession() + weapon.getName() + "攻击了" + player.getNameWithProfession() + ",";
+    protected String retrieveDescription(Player player) {
+        return getNameWithProfession() + weapon.getName() + "攻击了" + player.getNameWithProfession() + ","
+        + weapon.getHarmDescription(player, attackPoint);
     }
 
     @Override
-    protected String retrieveExtraAttackString(String name) {
-        return weapon.retrieveExtraAttackString(name);
-    }
-
-    @Override
-    protected int retrieveExtraAttackPointWhenAttack(int healthPoint) {
-        return weapon.retrieveExtraAttackPointWhenAttack(healthPoint);
-    }
-
-    @Override
-    protected String retrieveExtraAttackStringWhenAttack(String name, int healthPoint) {
-        return weapon.retrieveExtraAttackStringWhenAttack(name, healthPoint);
-    }
-
-    private int retrieveHarmPoint(int harmPoint) {
+    public int retrieveHarmPoint(int harmPoint) {
         return armor.retrieveHarmPoint(harmPoint);
     }
+
+    @Override
+    public void attack(Player player2) {
+        player2.harmDelay(this);
+        player2.reduceHealthPoint(getAttackPoint());
+        out.println(retrieveDescription(player2));
+    }
+
+    @Override
+    public void harmDelay(Player player) {
+        out.println(weapon.harmDelay(player));
+    }
+
 }
