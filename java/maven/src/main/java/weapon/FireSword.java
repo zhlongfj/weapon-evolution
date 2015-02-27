@@ -1,6 +1,7 @@
 package weapon;
 
 import player.Player;
+import status.Status;
 
 /**
  * Created by zhl on 15/2/12.
@@ -9,7 +10,8 @@ public class FireSword extends Weapon {
 
     private final int extraHarm;
 
-    public FireSword() {
+    public FireSword(Status status) {
+        super(status);
         extraHarm = 2;
     }
 
@@ -27,16 +29,5 @@ public class FireSword extends Weapon {
     public String returnHarmDescription(Player player1, Player player2) {
         return player2.getName() + "受到了" + player2.retrieveHarmPoint(player1.getAttackPoint()) + "点伤害,"
                 + player2.getName() + "着火了," + player2.getName() + "剩余生命:" + player2.getHealthPoint();
-    }
-
-    @Override
-    public void harmDelay(Player player) {
-        player.reduceHealthPoint(extraHarm);
-    }
-
-    @Override
-    public String returnHarmDelayDescription(Player player) {
-        return player.getName() + "受到" + extraHarm + "点火焰伤害,"
-                + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 }

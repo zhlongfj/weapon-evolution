@@ -7,6 +7,8 @@ import org.mockito.InOrder;
 import player.OrdinaryPlayer;
 import player.Player;
 import player.Soldier;
+import status.FireStatus;
+import status.NormalStatus;
 import weapon.*;
 
 import java.io.PrintStream;
@@ -28,9 +30,9 @@ public class GameProcessorTest {
     @Before
     public void setUp() throws Exception {
         out = mock(PrintStream.class);
-        stick = new Stick();
+        stick = new Stick(new NormalStatus(out));
         armor = new SoldierArmor("铠甲", 4);
-        noWeapon = new NoWeapon();
+        noWeapon = new NoWeapon(new NormalStatus(out));
     }
 
     @Test
@@ -189,7 +191,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_not_used_weapon_soldier_attack_ordinary_player() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(out)), new NoArmor());
         Player player2 = new OrdinaryPlayer(out, "张三", 10, 8);
 
         player1.attack(player2);
@@ -199,7 +201,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_not_used_weapon_soldier_attack_not_armored_soldier() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(out)), new NoArmor());
         Player player2 = new Soldier(out, "张三", 10, 8, stick, new NoArmor());
 
         player1.attack(player2);
@@ -209,7 +211,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_not_used_weapon_soldier_attack_armored_soldier() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(out)), new NoArmor());
         Player player2 = new Soldier(out, "张三", 10, 8, stick, armor);
 
         player1.attack(player2);
@@ -237,7 +239,7 @@ public class GameProcessorTest {
     @Test
     public void should_return_attacked_point_is_zero_when_defence_point_is_more_than_attacked_point() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 3);
-        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(), armor);
+        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(out)), armor);
 
         player1.attack(player2);
 
@@ -246,7 +248,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_poison_when_attack_player_use_poison_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(new NormalStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -257,7 +259,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_harm_point_when_poisoned_player_attack() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(new NormalStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -271,7 +273,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_fired_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new FireSword(), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new FireSword(new FireStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -282,7 +284,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_harm_point_when_fired_player_attack() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new FireSword(), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new FireSword(new FireStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -296,7 +298,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_frozen_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new IceSword(), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new IceSword(new NormalStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -306,7 +308,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_miss_when_frozen_player_attack() {
-        Player player1 = new Soldier(out, "张三", 20, 8, new IceSword(), armor);
+        Player player1 = new Soldier(out, "张三", 20, 8, new IceSword(new NormalStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);

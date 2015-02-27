@@ -1,16 +1,15 @@
 package weapon;
 
 import player.Player;
+import status.Status;
 
 /**
  * Created by zhl on 15/2/12.
  */
 public class IceSword extends Weapon {
 
-    private boolean canAttack;
-
-    public IceSword() {
-        canAttack = false;
+    public IceSword(Status status) {
+        super(status);
     }
 
     @Override
@@ -27,15 +26,5 @@ public class IceSword extends Weapon {
     @Override
     public void reduceHealthPoint(Player player1, Player player2) {
         player2.reduceHealthPoint(player1.getAttackPoint());
-    }
-
-    @Override
-    public void harmDelay(Player player) {
-        return ;
-    }
-
-    @Override
-    public String returnHarmDelayDescription(Player player) {
-        return "";
     }
 }

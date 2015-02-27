@@ -1,11 +1,16 @@
 package weapon;
 
 import player.Player;
+import status.Status;
 
 /**
  * Created by zhl on 15/2/12.
  */
 public class NoWeapon extends Weapon {
+    public NoWeapon(Status status) {
+        super(status);
+    }
+
     @Override
     public String getName() {
         return "";
@@ -20,15 +25,5 @@ public class NoWeapon extends Weapon {
     @Override
     public void reduceHealthPoint(Player player1, Player player2) {
         player2.reduceHealthPoint(player1.getAttackPoint());
-    }
-
-    @Override
-    public void harmDelay(Player player) {
-        return ;
-    }
-
-    @Override
-    public String returnHarmDelayDescription(Player player) {
-        return "";
     }
 }

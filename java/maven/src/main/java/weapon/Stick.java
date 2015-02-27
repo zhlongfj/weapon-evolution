@@ -1,16 +1,17 @@
 package weapon;
 
 import player.Player;
+import status.Status;
 
 /**
  * Created by zhl on 15/2/12.
  */
 public class Stick extends Weapon {
-    private String name;
     private int attackPoint;
 
-    public Stick() {
-        this.attackPoint = 4;
+    public Stick(Status status) {
+        super(status);
+        attackPoint = 4;
     }
 
     @Override
@@ -27,15 +28,5 @@ public class Stick extends Weapon {
     @Override
     public void reduceHealthPoint(Player player1, Player player2) {
         player2.reduceHealthPoint(player1.getAttackPoint() + attackPoint);
-    }
-
-    @Override
-    public void harmDelay(Player player) {
-        return ;
-    }
-
-    @Override
-    public String returnHarmDelayDescription(Player player) {
-        return "";
     }
 }

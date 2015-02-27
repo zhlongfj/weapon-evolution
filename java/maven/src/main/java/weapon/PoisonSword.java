@@ -1,6 +1,7 @@
 package weapon;
 
 import player.Player;
+import status.Status;
 
 /**
  * Created by zhl on 15/2/12.
@@ -9,7 +10,8 @@ public class PoisonSword extends Weapon {
 
     private final int extraHarm;
 
-    public PoisonSword() {
+    public PoisonSword(Status status) {
+        super(status);
         extraHarm = 2;
     }
 
@@ -27,16 +29,5 @@ public class PoisonSword extends Weapon {
     @Override
     public void reduceHealthPoint(Player player1, Player player2) {
         player2.reduceHealthPoint(player1.getAttackPoint());
-    }
-
-    @Override
-    public void  harmDelay(Player player) {
-        player.reduceHealthPoint(extraHarm);
-    }
-
-    @Override
-    public String returnHarmDelayDescription(Player player) {
-        return player.getName() + "受到" + extraHarm + "点毒性伤害,"
-                + player.getName() + "剩余生命:" + player.getHealthPoint();
     }
 }

@@ -1,16 +1,25 @@
 package weapon;
 
 import player.Player;
+import status.Status;
 
 /**
  * Created by zhl on 15/2/13.
  */
 public abstract class Weapon {
+    protected Status status;
+
+    protected Weapon(Status status) {
+        this.status = status;
+    }
+
     public abstract String getName();
     protected abstract String returnHarmDescription(Player player1, Player player2);
     public abstract void reduceHealthPoint(Player player1, Player player2);
-    public abstract void harmDelay(Player player);
-    public abstract String returnHarmDelayDescription(Player player);
+
+    public void setStatus(Player player) {
+        player.setStatus(status);
+    }
 
     public String returnDescription(Player player1, Player player2) {
         return returnAttackDescription(player1, player2) + returnHarmDescription(player1, player2);
