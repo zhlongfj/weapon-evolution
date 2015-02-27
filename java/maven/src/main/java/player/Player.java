@@ -1,5 +1,8 @@
 package player;
 
+import status.NormalStatus;
+import status.Status;
+
 import java.io.PrintStream;
 
 /**
@@ -11,12 +14,14 @@ public abstract class Player {
     protected String name;
     protected int healthPoint;
     protected int attackPoint;
+    protected Status status;
 
     public Player(PrintStream out, String name, int healthPoint, int attackPoint) {
         this.out = out;
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPoint = attackPoint;
+        status = new NormalStatus(out);
     }
 
     public abstract void attack(Player player2);
@@ -37,9 +42,11 @@ public abstract class Player {
         return profession + name;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public abstract boolean canAttack();
     public abstract void reduceHealthPoint(int attackedPoint);
     public abstract int retrieveHarmPoint(int harmPoint);
-
-    public abstract void harmDelay(Player player);
 }

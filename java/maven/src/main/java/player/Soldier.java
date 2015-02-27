@@ -1,6 +1,7 @@
 package player;
 
 import armor.Armor;
+import status.FireStatus;
 import weapon.Weapon;
 
 import java.io.PrintStream;
@@ -37,14 +38,9 @@ public class Soldier extends Player {
 
     @Override
     public void attack(Player player2) {
-        player2.harmDelay(this);
+        status.attack(this);
+        player2.setStatus(new FireStatus(out));
         weapon.reduceHealthPoint(this, player2);
         out.println(weapon.returnDescription(this, player2));
-    }
-
-    @Override
-    public void harmDelay(Player player) {
-        weapon.harmDelay(player);
-        out.println(weapon.returnHarmDelayDescription(player));
     }
 }

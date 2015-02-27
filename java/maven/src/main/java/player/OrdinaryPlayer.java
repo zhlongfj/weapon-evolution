@@ -1,5 +1,7 @@
 package player;
 
+import status.NormalStatus;
+
 import java.io.PrintStream;
 
 /**
@@ -39,13 +41,9 @@ public class OrdinaryPlayer extends Player {
 
     @Override
     public void attack(Player player2) {
-        player2.harmDelay(this);
+        status.attack(this);
+        player2.setStatus(new NormalStatus(out));
         player2.reduceHealthPoint(attackPoint);
         out.println(retrieveDescription(player2));
-    }
-
-    @Override
-    public void harmDelay(Player player) {
-        return ;
     }
 }
