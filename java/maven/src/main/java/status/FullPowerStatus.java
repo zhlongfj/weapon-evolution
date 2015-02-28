@@ -29,7 +29,7 @@ public class FullPowerStatus extends Status{
     }
 
     @Override
-    public int retrieveAttackPoint(int attackPoint) {
-        return attackPoint * 3;
+    public int retrieveHarmPoint(int attackPoint, Player player) {
+        return player.retrieveHarmPoint(attackPoint) * 3;
     }
 }

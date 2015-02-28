@@ -15,7 +15,6 @@ public abstract class Weapon {
     }
 
     public abstract String getName();
-    protected abstract String returnHarmDescription(Player player1, Player player2);
     public abstract void reduceHealthPoint(Player player1, Player player2);
 
     public void setStatus(Player player) {

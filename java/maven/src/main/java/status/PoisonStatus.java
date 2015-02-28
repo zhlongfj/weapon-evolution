@@ -34,7 +34,7 @@ public class PoisonStatus extends Status {
     }
 
     @Override
-    public int retrieveAttackPoint(int attackPoint) {
-        return attackPoint;
+    public int retrieveHarmPoint(int attackPoint, Player player) {
+        return player.retrieveHarmPoint(attackPoint);
     }
 }

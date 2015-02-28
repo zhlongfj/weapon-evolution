@@ -31,7 +31,7 @@ public class NormalStatus extends Status {
     }
 
     @Override
-    public int retrieveAttackPoint(int attackPoint) {
-        return this.attackPoint + attackPoint;
+    public int retrieveHarmPoint(int attackPoint, Player player) {
+        return player.retrieveHarmPoint(this.attackPoint + attackPoint);
     }
 }

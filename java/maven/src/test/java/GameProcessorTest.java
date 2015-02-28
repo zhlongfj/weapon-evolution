@@ -362,4 +362,14 @@ public class GameProcessorTest {
 
         verify(out).println("战士张三用利剑攻击了普通人李四,张三发动了全力一击,李四受到了24点伤害,李四剩余生命:-4");
     }
+
+    @Test
+    public void should_print_attacked_player_is_3_times_harm_when_attack_player_use_sharp_sword_attack_soldier() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("利剑", new FullPowerStatus(out)), armor);
+        Player player2 = new Soldier(out, "李四", 20, 9, stick, armor);
+
+        player1.attack(player2);
+
+        verify(out).println("战士张三用利剑攻击了战士李四,张三发动了全力一击,李四受到了12点伤害,李四剩余生命:8");
+    }
 }

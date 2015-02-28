@@ -27,7 +27,7 @@ public class Soldier extends Player {
 
     @Override
     public void reduceHealthPoint(int harmPoint) {
-        healthPoint -= retrieveHarmPoint(harmPoint);
+        healthPoint -= harmPoint;
     }
 
     @Override

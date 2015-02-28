@@ -17,5 +17,5 @@ public abstract class Status {
     public abstract void attack(Player player1, Player player2);
     public abstract boolean canAttack();
     public abstract String retrieveHarmDescription(Player player1, Player player2);
-    public abstract int retrieveAttackPoint(int attackPoint);
+    public abstract int retrieveHarmPoint(int attackPoint, Player player);
 }

@@ -17,13 +17,7 @@ public class NoWeapon extends Weapon {
     }
 
     @Override
-    public String returnHarmDescription(Player playe1, Player player2) {
-        return player2.getName() + "受到了" + player2.retrieveHarmPoint(playe1.getAttackPoint()) + "点伤害,"
-                + player2.getName() + "剩余生命:" + player2.getHealthPoint();
-    }
-
-    @Override
     public void reduceHealthPoint(Player player1, Player player2) {
-        player2.reduceHealthPoint(player1.getAttackPoint());
+        player2.reduceHealthPoint(player2.retrieveHarmPoint(player1.getAttackPoint()));
     }
 }
