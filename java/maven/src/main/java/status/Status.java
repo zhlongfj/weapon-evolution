@@ -9,10 +9,11 @@ import java.io.PrintStream;
  */
 public abstract class Status {
     protected PrintStream out;
-
+    protected int times;
     protected Status(PrintStream out) {
         this.out = out;
     }
 
-    public abstract void attack(Player player);
+    public abstract void attack(Player player1, Player player2);
+    public abstract boolean canAttack();
 }

@@ -7,8 +7,7 @@ import org.mockito.InOrder;
 import player.OrdinaryPlayer;
 import player.Player;
 import player.Soldier;
-import status.FireStatus;
-import status.NormalStatus;
+import status.*;
 import weapon.*;
 
 import java.io.PrintStream;
@@ -259,7 +258,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_harm_point_when_poisoned_player_attack() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(new NormalStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new PoisonSword(new PoisonStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -298,7 +297,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_frozen_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new IceSword(new NormalStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new IceSword(new FrozenStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -308,16 +307,49 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_miss_when_frozen_player_attack() {
-        Player player1 = new Soldier(out, "张三", 20, 8, new IceSword(new NormalStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 20, 8, new IceSword(new FrozenStatus(out)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
+        player1.attack(player2);
+        player2.attack(player1);
         player1.attack(player2);
         player2.attack(player1);
 
         InOrder inOrder = inOrder(out);
         verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:12");
-        //verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:4");
-        //verify(out).println("李四冻得直哆嗦，没有击中张三");
+        verify(out).println("普通人李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:15");
+        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:4");
+        verify(out).println("李四冻得直哆嗦，没有击中张三");
+    }
 
+    @Test
+    public void should_print_attacked_player_is_vertigo_when_attack_player_use_vertigo_hammer() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new VertigoHammer(new NormalStatus(out)), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
+
+        player1.attack(player2);
+
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了8点伤害,李四晕倒了,李四剩余生命:12");
+    }
+
+    @Test
+    public void should_print_vertigo_when_vertigo_player_attack() {
+        Player player1 = new Soldier(out, "张三", 20, 4, new VertigoHammer(new VertigoStatus(out)), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
+
+        player1.attack(player2);
+        player2.attack(player1);
+        player1.attack(player2);
+        player2.attack(player1);
+        player1.attack(player2);
+        player2.attack(player1);
+
+        InOrder inOrder = inOrder(out);
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:16");
+        verify(out).println("李四晕倒了,无法攻击,眩晕还剩:1轮");
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:12");
+        verify(out).println("李四晕倒了,无法攻击,眩晕还剩:0轮");
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:8");
+        verify(out).println("普通人李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:15");
     }
 }

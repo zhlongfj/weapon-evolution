@@ -8,11 +8,8 @@ import status.Status;
  */
 public class FireSword extends Weapon {
 
-    private final int extraHarm;
-
     public FireSword(Status status) {
         super(status);
-        extraHarm = 2;
     }
 
     @Override

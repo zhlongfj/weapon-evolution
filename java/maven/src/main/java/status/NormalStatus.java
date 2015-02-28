@@ -13,7 +13,12 @@ public class NormalStatus extends Status {
     }
 
     @Override
-    public void attack(Player player) {
+    public void attack(Player player1, Player player2) {
         return;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return true;
     }
 }
