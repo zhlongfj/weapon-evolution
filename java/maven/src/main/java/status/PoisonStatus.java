@@ -26,4 +26,15 @@ public class PoisonStatus extends Status {
     public boolean canAttack() {
         return true;
     }
+
+    @Override
+    public String retrieveHarmDescription(Player player1, Player player2) {
+        return player2.getName() + "受到了" + player2.retrieveHarmPoint(player1.getAttackPoint()) + "点伤害,"
+                + player2.getName() + "中毒了,";
+    }
+
+    @Override
+    public int retrieveAttackPoint(int attackPoint) {
+        return attackPoint;
+    }
 }

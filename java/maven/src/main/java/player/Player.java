@@ -21,7 +21,7 @@ public abstract class Player {
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPoint = attackPoint;
-        status = new NormalStatus(out);
+        status = new NormalStatus(0, out);
     }
 
     public abstract void attack(Player player2);

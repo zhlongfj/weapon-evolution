@@ -25,4 +25,15 @@ public class FrozenStatus extends Status {
     public boolean canAttack() {
         return times != 0 ? true : false;
     }
+
+    @Override
+    public String retrieveHarmDescription(Player player1, Player player2) {
+        return player2.getName() + "受到了" + player2.retrieveHarmPoint(player1.getAttackPoint()) + "点伤害,"
+                + player2.getName() + "冻僵了,";
+    }
+
+    @Override
+    public int retrieveAttackPoint(int attackPoint) {
+        return attackPoint;
+    }
 }
