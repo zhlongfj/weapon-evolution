@@ -14,7 +14,14 @@ public abstract class Status {
         this.out = out;
     }
 
-    public abstract void attack(Player player1, Player player2);
+    public void attack(Player player1, Player player2) {
+        times--;
+        if (times >= 0) {
+            attackReal(player1, player2);
+        }
+    }
+
+    protected abstract void attackReal(Player player1, Player player2);
     public abstract boolean canAttack();
     public abstract String retrieveHarmDescription(Player player1, Player player2);
     public abstract int retrieveHarmPoint(int attackPoint, Player player);

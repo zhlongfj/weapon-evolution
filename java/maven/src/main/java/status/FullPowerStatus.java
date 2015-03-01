@@ -13,7 +13,7 @@ public class FullPowerStatus extends Status{
     }
 
     @Override
-    public void attack(Player player1, Player player2) {
+    protected void attackReal(Player player1, Player player2) {
 
     }
 

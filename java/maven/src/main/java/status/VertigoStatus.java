@@ -14,11 +14,8 @@ public class VertigoStatus extends Status{
     }
 
     @Override
-    public void attack(Player player1, Player player2) {
-        times--;
-        if (times >= 0) {
-            out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
-        }
+    protected void attackReal(Player player1, Player player2) {
+        out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
     }
 
     @Override

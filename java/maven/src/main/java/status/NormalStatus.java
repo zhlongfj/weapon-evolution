@@ -12,11 +12,12 @@ public class NormalStatus extends Status {
 
     public NormalStatus(int attackPoint, PrintStream out) {
         super(out);
+        times = 0;
         this.attackPoint = attackPoint;
     }
 
     @Override
-    public void attack(Player player1, Player player2) {
+    protected void attackReal(Player player1, Player player2) {
         return;
     }
 

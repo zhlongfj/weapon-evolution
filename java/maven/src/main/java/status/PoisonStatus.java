@@ -12,11 +12,12 @@ public class PoisonStatus extends Status {
 
     public PoisonStatus(PrintStream out) {
         super(out);
+        times = 2;
         harmPoint = 2;
     }
 
     @Override
-    public void attack(Player player1, Player player2) {
+    protected void attackReal(Player player1, Player player2) {
         player1.reduceHealthPoint(harmPoint);
         out.println(player1.getName() + "受到" + harmPoint + "点毒性伤害,"
                 + player1.getName() + "剩余生命:" + player1.getHealthPoint());

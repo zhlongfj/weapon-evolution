@@ -8,16 +8,20 @@ import java.io.PrintStream;
  * Created by zhl on 15/2/28.
  */
 public class FrozenStatus extends Status {
+    private int frozenTimes = 2;
     public FrozenStatus(PrintStream out) {
         super(out);
         times = 2;
     }
 
     @Override
-    public void attack(Player player1, Player player2) {
-        times--;
-        if (times == 0) {
+    protected void attackReal(Player player1, Player player2) {
+        frozenTimes--;
+        if (frozenTimes == 0) {
             out.println(player1.getName() + "冻得直哆嗦，没有击中" + player2.getName());
+            frozenTimes = 2;
+        } else {
+            times++;
         }
     }
 
