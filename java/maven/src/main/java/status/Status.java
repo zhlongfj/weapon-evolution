@@ -3,6 +3,7 @@ package status;
 import player.Player;
 
 import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * Created by zhl on 15/2/27.
@@ -10,8 +11,13 @@ import java.io.PrintStream;
 public abstract class Status {
     protected PrintStream out;
     protected int times;
-    protected Status(PrintStream out) {
+    protected Random random;
+    private int attackPoint;
+
+    protected Status(PrintStream out, Random random, int attackPoint) {
         this.out = out;
+        this.random = random;
+        this.attackPoint = attackPoint;
     }
 
     public void attack(Player player1, Player player2) {
@@ -21,8 +27,15 @@ public abstract class Status {
         }
     }
 
+    //public abstract boolean canTriggerEffect();
+
+    public abstract int retrieveHarmPoint(Player player1, Player player2);
+
+    protected int retrieveBaseHarmPoint(Player player1, Player player2) {
+        return player2.retrieveHarmPoint(player1.getAttackPoint() + attackPoint);
+    }
+
     protected abstract void attackReal(Player player1, Player player2);
     public abstract boolean canAttack();
     public abstract String retrieveHarmDescription(Player player1, Player player2);
-    public abstract int retrieveHarmPoint(int attackPoint, Player player);
 }

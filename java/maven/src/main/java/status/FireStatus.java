@@ -8,22 +8,25 @@ import java.util.Random;
 /**
  * Created by zhl on 15/2/27.
  */
-public class FireStatus extends Status{
+public class FireStatus extends Status {
 
-    private int harmPoint;
-    private Random random;
+    private int delayHarmPoint;
 
-    public FireStatus(PrintStream out) {
-        super(out);
-        this.random = null;
+    public FireStatus(PrintStream out, Random random) {
+        super(out, random, 2);
         times = 2;
-        this.harmPoint = 2;
+        this.delayHarmPoint = 2;
+    }
+
+    @Override
+    public int retrieveHarmPoint(Player player1, Player player2) {
+        return retrieveBaseHarmPoint(player1, player2);
     }
 
     @Override
     protected void attackReal(Player player1, Player player2) {
-        player1.reduceHealthPoint(harmPoint);
-        out.println(player1.getName() + "受到" + harmPoint + "点火焰伤害,"
+        player1.reduceHealthPoint(delayHarmPoint);
+        out.println(player1.getName() + "受到" + delayHarmPoint + "点火焰伤害,"
                 + player1.getName() + "剩余生命:" + player1.getHealthPoint());
     }
 
@@ -34,12 +37,7 @@ public class FireStatus extends Status{
 
     @Override
     public String retrieveHarmDescription(Player player1, Player player2) {
-        return player2.getName() + "受到了" + player2.retrieveHarmPoint(player1.getAttackPoint()) + "点伤害,"
+        return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,"
                 + player2.getName() + "着火了,";
-    }
-
-    @Override
-    public int retrieveHarmPoint(int attackPoint, Player player) {
-        return player.retrieveHarmPoint(attackPoint);
     }
 }

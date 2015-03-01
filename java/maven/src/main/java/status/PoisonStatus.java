@@ -3,6 +3,7 @@ package status;
 import player.Player;
 
 import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * Created by zhl on 15/2/27.
@@ -10,10 +11,15 @@ import java.io.PrintStream;
 public class PoisonStatus extends Status {
     private int harmPoint;
 
-    public PoisonStatus(PrintStream out) {
-        super(out);
+    public PoisonStatus(PrintStream out, Random random) {
+        super(out, random, 2);
         times = 2;
         harmPoint = 2;
+    }
+
+    @Override
+    public int retrieveHarmPoint(Player player1, Player player2) {
+        return retrieveBaseHarmPoint(player1, player2);
     }
 
     @Override
@@ -30,12 +36,8 @@ public class PoisonStatus extends Status {
 
     @Override
     public String retrieveHarmDescription(Player player1, Player player2) {
-        return player2.getName() + "受到了" + player2.retrieveHarmPoint(player1.getAttackPoint()) + "点伤害,"
+        return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,"
                 + player2.getName() + "中毒了,";
     }
 
-    @Override
-    public int retrieveHarmPoint(int attackPoint, Player player) {
-        return player.retrieveHarmPoint(attackPoint);
-    }
-}
+   }

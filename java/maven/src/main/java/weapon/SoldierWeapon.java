@@ -20,6 +20,6 @@ public class SoldierWeapon extends Weapon{
 
     @Override
     public void reduceHealthPoint(Player player1, Player player2) {
-        player2.reduceHealthPoint(status.retrieveHarmPoint(player1.getAttackPoint(), player2));
+        player2.reduceHealthPoint(status.retrieveHarmPoint(player1, player2));
     }
 }

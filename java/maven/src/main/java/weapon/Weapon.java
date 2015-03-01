@@ -15,6 +15,12 @@ public abstract class Weapon {
     }
 
     public abstract String getName();
+    public String attackAndReturnDescription(Player player1, Player player2) {
+        setStatus(player2);
+        reduceHealthPoint(player1, player2);
+        return returnDescription(player1, player2);
+    }
+
     public abstract void reduceHealthPoint(Player player1, Player player2);
 
     public void setStatus(Player player) {

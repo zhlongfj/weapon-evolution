@@ -39,9 +39,7 @@ public class Soldier extends Player {
     public void attack(Player player2) {
         status.attack(this, player2);
         if (status.canAttack()) {
-            weapon.setStatus(player2);
-            weapon.reduceHealthPoint(this, player2);
-            out.println(weapon.returnDescription(this, player2));
+            out.println(weapon.attackAndReturnDescription(this, player2));
         }
     }
 }

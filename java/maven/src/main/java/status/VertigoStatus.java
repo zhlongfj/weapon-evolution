@@ -3,14 +3,20 @@ package status;
 import player.Player;
 
 import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * Created by zhl on 15/2/28.
  */
 public class VertigoStatus extends Status{
-    public VertigoStatus(PrintStream out) {
-        super(out);
+    public VertigoStatus(PrintStream out, Random random) {
+        super(out, random, 2);
         times = 2;
+    }
+
+    @Override
+    public int retrieveHarmPoint(Player player1, Player player2) {
+        return retrieveBaseHarmPoint(player1, player2);
     }
 
     @Override
@@ -25,12 +31,7 @@ public class VertigoStatus extends Status{
 
     @Override
     public String retrieveHarmDescription(Player player1, Player player2) {
-        return player2.getName() + "受到了" + player2.retrieveHarmPoint(player1.getAttackPoint()) + "点伤害,"
+        return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,"
                 + player2.getName() + "晕倒了,";
-    }
-
-    @Override
-    public int retrieveHarmPoint(int attackPoint, Player player) {
-        return player.retrieveHarmPoint(attackPoint);
     }
 }

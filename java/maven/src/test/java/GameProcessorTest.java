@@ -11,6 +11,7 @@ import status.*;
 import weapon.*;
 
 import java.io.PrintStream;
+import java.util.Random;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -25,13 +26,14 @@ public class GameProcessorTest {
     private Weapon stick;
     private Armor armor;
     private Weapon noWeapon;
-
+    private Random random;
     @Before
     public void setUp() throws Exception {
         out = mock(PrintStream.class);
         armor = new SoldierArmor("铠甲", 4);
-        stick = new SoldierWeapon("优质木棒", new NormalStatus(4, out));
-        noWeapon = new NoWeapon(new NormalStatus(0, out));
+        random = mock(Random.class);
+        stick = new SoldierWeapon("优质木棒", new NormalStatus(4, out, random));
+        noWeapon = new NoWeapon(new NormalStatus(0, out, random));
     }
 
     @Test
@@ -190,7 +192,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_not_used_weapon_soldier_attack_ordinary_player() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out)), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out, random)), new NoArmor());
         Player player2 = new OrdinaryPlayer(out, "张三", 10, 8);
 
         player1.attack(player2);
@@ -200,7 +202,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_not_used_weapon_soldier_attack_not_armored_soldier() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out)), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out, random)), new NoArmor());
         Player player2 = new Soldier(out, "张三", 10, 8, stick, new NoArmor());
 
         player1.attack(player2);
@@ -210,7 +212,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_not_used_weapon_soldier_attack_armored_soldier() {
-        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out)), new NoArmor());
+        Player player1 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out, random)), new NoArmor());
         Player player2 = new Soldier(out, "张三", 10, 8, stick, armor);
 
         player1.attack(player2);
@@ -238,7 +240,7 @@ public class GameProcessorTest {
     @Test
     public void should_return_attacked_point_is_zero_when_defence_point_is_more_than_attacked_point() {
         Player player1 = new OrdinaryPlayer(out, "张三", 10, 3);
-        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out)), armor);
+        Player player2 = new Soldier(out, "李四", 20, 9, new NoWeapon(new NormalStatus(0, out, random)), armor);
 
         player1.attack(player2);
 
@@ -247,67 +249,67 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_poison_when_attack_player_use_poison_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("毒剑", new PoisonStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("毒剑", new PoisonStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
 
-        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了8点伤害,李四中毒了,李四剩余生命:12");
+        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了10点伤害,李四中毒了,李四剩余生命:10");
 
     }
 
     @Test
     public void should_print_harm_point_when_poisoned_player_attack() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("毒剑", new PoisonStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("毒剑", new PoisonStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
         player2.attack(player1);
 
         InOrder inOrder = inOrder(out);
-        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了8点伤害,李四中毒了,李四剩余生命:12");
-        verify(out).println("李四受到2点毒性伤害,李四剩余生命:10");
+        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了10点伤害,李四中毒了,李四剩余生命:10");
+        verify(out).println("李四受到2点毒性伤害,李四剩余生命:8");
 
     }
 
     @Test
     public void should_print_attacked_player_is_fired_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("火焰剑", new FireStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("火焰剑", new FireStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
 
-        verify(out).println("战士张三用火焰剑攻击了普通人李四,李四受到了8点伤害,李四着火了,李四剩余生命:12");
+        verify(out).println("战士张三用火焰剑攻击了普通人李四,李四受到了10点伤害,李四着火了,李四剩余生命:10");
 
     }
 
     @Test
     public void should_print_harm_point_when_fired_player_attack() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("火焰剑", new FireStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("火焰剑", new FireStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
         player2.attack(player1);
 
         InOrder inOrder = inOrder(out);
-        verify(out).println("战士张三用火焰剑攻击了普通人李四,李四受到了8点伤害,李四着火了,李四剩余生命:12");
-        verify(out).println("李四受到2点火焰伤害,李四剩余生命:10");
+        verify(out).println("战士张三用火焰剑攻击了普通人李四,李四受到了10点伤害,李四着火了,李四剩余生命:10");
+        verify(out).println("李四受到2点火焰伤害,李四剩余生命:8");
 
     }
 
     @Test
     public void should_print_attacked_player_is_frozen_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("寒冰剑", new FrozenStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("寒冰剑", new FrozenStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
 
-        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:12");
+        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了10点伤害,李四冻僵了,李四剩余生命:10");
     }
 
     @Test
     public void should_print_miss_when_frozen_player_attack() {
-        Player player1 = new Soldier(out, "张三", 20, 8, new SoldierWeapon("寒冰剑", new FrozenStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 20, 8, new SoldierWeapon("寒冰剑", new FrozenStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -316,25 +318,25 @@ public class GameProcessorTest {
         player2.attack(player1);
 
         InOrder inOrder = inOrder(out);
-        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:12");
+        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了10点伤害,李四冻僵了,李四剩余生命:10");
         verify(out).println("普通人李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:15");
-        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了8点伤害,李四冻僵了,李四剩余生命:4");
+        verify(out).println("战士张三用寒冰剑攻击了普通人李四,李四受到了10点伤害,李四冻僵了,李四剩余生命:0");
         verify(out).println("李四冻得直哆嗦，没有击中张三");
     }
 
     @Test
     public void should_print_attacked_player_is_vertigo_when_attack_player_use_vertigo_hammer() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("晕锤", new VertigoStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("晕锤", new VertigoStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
 
-        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了8点伤害,李四晕倒了,李四剩余生命:12");
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了10点伤害,李四晕倒了,李四剩余生命:10");
     }
 
     @Test
     public void should_print_vertigo_when_vertigo_player_attack() {
-        Player player1 = new Soldier(out, "张三", 20, 4, new SoldierWeapon("晕锤", new VertigoStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 20, 4, new SoldierWeapon("晕锤", new VertigoStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -345,31 +347,31 @@ public class GameProcessorTest {
         player2.attack(player1);
 
         InOrder inOrder = inOrder(out);
-        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:16");
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了6点伤害,李四晕倒了,李四剩余生命:14");
         verify(out).println("李四晕倒了,无法攻击,眩晕还剩:1轮");
-        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:12");
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了6点伤害,李四晕倒了,李四剩余生命:8");
         verify(out).println("李四晕倒了,无法攻击,眩晕还剩:0轮");
-        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:8");
+        verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了6点伤害,李四晕倒了,李四剩余生命:2");
         verify(out).println("普通人李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:15");
     }
 
     @Test
     public void should_print_attacked_player_is_3_times_harm_when_attack_player_use_sharp_sword() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("利剑", new FullPowerStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("利剑", new FullPowerStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
 
-        verify(out).println("战士张三用利剑攻击了普通人李四,张三发动了全力一击,李四受到了24点伤害,李四剩余生命:-4");
+        verify(out).println("战士张三用利剑攻击了普通人李四,张三发动了全力一击,李四受到了30点伤害,李四剩余生命:-10");
     }
 
     @Test
     public void should_print_attacked_player_is_3_times_harm_when_attack_player_use_sharp_sword_attack_soldier() {
-        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("利剑", new FullPowerStatus(out)), armor);
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("利剑", new FullPowerStatus(out, random)), armor);
         Player player2 = new Soldier(out, "李四", 20, 9, stick, armor);
 
         player1.attack(player2);
 
-        verify(out).println("战士张三用利剑攻击了战士李四,张三发动了全力一击,李四受到了12点伤害,李四剩余生命:8");
+        verify(out).println("战士张三用利剑攻击了战士李四,张三发动了全力一击,李四受到了18点伤害,李四剩余生命:2");
     }
 }
