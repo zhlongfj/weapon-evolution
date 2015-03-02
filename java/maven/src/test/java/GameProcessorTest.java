@@ -33,6 +33,7 @@ public class GameProcessorTest {
         out = mock(PrintStream.class);
         armor = new SoldierArmor("铠甲", 4);
         random = mock(Random.class);
+        given(random.nextInt(2)).willReturn(0);
         stick = new SoldierWeapon("优质木棒", out, random);
         noWeapon = new NoWeapon(out, random);
     }
@@ -290,6 +291,20 @@ public class GameProcessorTest {
         verify(out).println("李四受到2点毒性伤害,李四剩余生命:6");
         verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:8");
         verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:7");
+    }
+
+    @Test
+    public void should_delay_attack_not_harm_when_effect_is_not_triggered() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("毒剑", out, random), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 5);
+        given(random.nextInt(2)).willReturn(1);
+
+        player1.attack(player2);
+        player2.attack(player1);
+
+        InOrder inOrder = inOrder(out);
+        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了10点伤害,李四剩余生命:10");
+        verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:9");
     }
 
     @Test

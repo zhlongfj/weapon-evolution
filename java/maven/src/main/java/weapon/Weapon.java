@@ -12,12 +12,16 @@ public abstract class Weapon {
 
     public abstract String getName();
     public String attackAndReturnDescription(Player player1, Player player2) {
-        setStatus(player2);
+        if (status.canTriggerEffect()) {
+            setStatus(player2);
+        }
         reduceHealthPoint(player1, player2);
         return returnDescription(player1, player2);
     }
 
-    public abstract void reduceHealthPoint(Player player1, Player player2);
+    public void reduceHealthPoint(Player player1, Player player2) {
+        player2.reduceHealthPoint(status.retrieveHarmPoint(player1, player2));
+    }
 
     public void setStatus(Player player) {
         player.setStatus(status);
@@ -25,7 +29,7 @@ public abstract class Weapon {
 
     public String returnDescription(Player player1, Player player2) {
         return returnAttackDescription(player1, player2)
-                + status.retrieveHarmDescription(player1, player2) + returnAttackResult(player2);
+                + status.retrieveHarmAndEffectDescription(player1, player2) + returnAttackResult(player2);
     }
 
     private String returnAttackDescription(Player player1, Player player2) {

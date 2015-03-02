@@ -15,10 +15,12 @@ public class PoisonStatus extends Status {
         super(out, random, 2);
         times = 2;
         harmPoint = 2;
+        effect = "中毒了";
+        triggerEffectOdds = 2;
     }
 
-    public boolean canTriggerEffect() {
-        return random.nextInt(2) == 0 ? true : false;
+    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+        return super.retrieveHarmDescription(player1, player2) + retrieveEffectDescription(player2);
     }
 
     @Override
@@ -27,11 +29,4 @@ public class PoisonStatus extends Status {
         out.println(player1.getName() + "受到" + harmPoint + "点毒性伤害,"
                 + player1.getName() + "剩余生命:" + player1.getHealthPoint());
     }
-
-    @Override
-    public String retrieveHarmDescription(Player player1, Player player2) {
-        return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,"
-                + player2.getName() + "中毒了,";
-    }
-
    }

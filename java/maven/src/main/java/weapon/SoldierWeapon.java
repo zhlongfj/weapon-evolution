@@ -1,6 +1,5 @@
 package weapon;
 
-import player.Player;
 import status.*;
 
 import java.io.PrintStream;
@@ -30,14 +29,9 @@ public class SoldierWeapon extends Weapon{
         states.put("晕锤", new VertigoStatus(out, random));
         states.put("利剑", new FullPowerStatus(out, random));
     }
-    
+
     @Override
     public String getName() {
         return name;
-    }
-
-    @Override
-    public void reduceHealthPoint(Player player1, Player player2) {
-        player2.reduceHealthPoint(status.retrieveHarmPoint(player1, player2));
     }
 }

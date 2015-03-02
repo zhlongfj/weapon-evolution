@@ -1,6 +1,5 @@
 package weapon;
 
-import player.Player;
 import status.NormalStatus;
 
 import java.io.PrintStream;
@@ -17,10 +16,5 @@ public class NoWeapon extends Weapon {
     @Override
     public String getName() {
         return "";
-    }
-
-    @Override
-    public void reduceHealthPoint(Player player1, Player player2) {
-        player2.reduceHealthPoint(player2.retrieveHarmPoint(player1.getAttackPoint()));
     }
 }

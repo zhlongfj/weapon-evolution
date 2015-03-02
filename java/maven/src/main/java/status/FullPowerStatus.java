@@ -13,15 +13,12 @@ public class FullPowerStatus extends Status{
     public FullPowerStatus(PrintStream out, Random random) {
         super(out, random, 2);
         times = 0;
-
+        effect = "发动了全力一击";
+        triggerEffectOdds = 2;
     }
 
     public int retrieveHarmPoint(Player player1, Player player2) {
         return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
-    }
-
-    public boolean canTriggerEffect() {
-        return random.nextInt(2) == 0 ? true : false;
     }
 
     @Override
@@ -29,14 +26,8 @@ public class FullPowerStatus extends Status{
 
     }
 
-    public boolean canAttack() {
-        return false;
-    }
-
-    @Override
-    public String retrieveHarmDescription(Player player1, Player player2) {
-        return player1.getName() + "发动了全力一击,"
-                + player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,";
+    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+        return retrieveEffectDescription(player1) + retrieveHarmDescription(player1, player2);
     }
 
   }

@@ -13,14 +13,16 @@ public class FrozenStatus extends Status {
     public FrozenStatus(PrintStream out, Random random) {
         super(out, random, 2);
         times = 2;
+        effect = "冻僵了";
+        triggerEffectOdds = 2;
     }
 
     public boolean canAttack() {
         return times != 0 ? true : false;
     }
 
-    public boolean canTriggerEffect() {
-        return random.nextInt(2) == 0 ? true : false;
+    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+        return super.retrieveHarmDescription(player1, player2) + retrieveEffectDescription(player2);
     }
 
     @Override
@@ -33,11 +35,4 @@ public class FrozenStatus extends Status {
             times++;
         }
     }
-
-    @Override
-    public String retrieveHarmDescription(Player player1, Player player2) {
-        return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,"
-                + player2.getName() + "冻僵了,";
-    }
-
 }

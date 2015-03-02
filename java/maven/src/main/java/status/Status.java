@@ -13,11 +13,15 @@ public abstract class Status {
     protected int times;
     protected Random random;
     private int attackPoint;
+    protected String effect;
+    private boolean canTriggerEffect;
+    protected int triggerEffectOdds;
 
     protected Status(PrintStream out, Random random, int attackPoint) {
         this.out = out;
         this.random = random;
         this.attackPoint = attackPoint;
+        canTriggerEffect = false;
     }
 
     public void delayAttack(Player player1, Player player2) {
@@ -36,9 +40,23 @@ public abstract class Status {
     }
 
     public boolean canTriggerEffect() {
-        return true;
+        if (random.nextInt(triggerEffectOdds) == 0) {
+            canTriggerEffect = true;
+        }
+        return  canTriggerEffect;
     }
 
     protected abstract void delayAttackReal(Player player1, Player player2);
-    public abstract String retrieveHarmDescription(Player player1, Player player2);
+    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+        return retrieveHarmDescription(player1, player2);
+    }
+
+    protected String retrieveHarmDescription(Player player1, Player player2) {
+        return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,";
+    }
+
+    protected String retrieveEffectDescription(Player player) {
+        return canTriggerEffect ? player.getName() + effect + "," : "";
+    }
+
 }
