@@ -37,7 +37,7 @@ public class Soldier extends Player {
 
     @Override
     public void attack(Player player2) {
-        status.attack(this, player2);
+        status.delayAttack(this, player2);
         if (status.canAttack()) {
             out.println(weapon.attackAndReturnDescription(this, player2));
         }

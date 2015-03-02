@@ -20,10 +20,10 @@ public abstract class Status {
         this.attackPoint = attackPoint;
     }
 
-    public void attack(Player player1, Player player2) {
+    public void delayAttack(Player player1, Player player2) {
         times--;
         if (times >= 0) {
-            attackReal(player1, player2);
+            delayAttackReal(player1, player2);
         }
     }
 
@@ -37,9 +37,11 @@ public abstract class Status {
         return player2.retrieveHarmPoint(player1.getAttackPoint() + attackPoint);
     }
 
-    protected abstract void attackReal(Player player1, Player player2);
     public boolean canAttack() {
         return true;
     }
+
+    protected abstract void delayAttackReal(Player player1, Player player2);
+
     public abstract String retrieveHarmDescription(Player player1, Player player2);
 }

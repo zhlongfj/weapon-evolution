@@ -21,7 +21,7 @@ public class FullPowerStatus extends Status{
     }
 
     @Override
-    protected void attackReal(Player player1, Player player2) {
+    protected void delayAttackReal(Player player1, Player player2) {
 
     }
 

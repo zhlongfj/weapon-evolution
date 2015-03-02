@@ -15,11 +15,10 @@ public class VertigoStatus extends Status{
     }
 
     @Override
-    protected void attackReal(Player player1, Player player2) {
+    protected void delayAttackReal(Player player1, Player player2) {
         out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
     }
 
-    @Override
     public boolean canAttack() {
         return times < 0 ? true : false;
     }

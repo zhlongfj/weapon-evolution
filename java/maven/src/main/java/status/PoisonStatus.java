@@ -18,7 +18,7 @@ public class PoisonStatus extends Status {
     }
 
     @Override
-    protected void attackReal(Player player1, Player player2) {
+    protected void delayAttackReal(Player player1, Player player2) {
         player1.reduceHealthPoint(harmPoint);
         out.println(player1.getName() + "受到" + harmPoint + "点毒性伤害,"
                 + player1.getName() + "剩余生命:" + player1.getHealthPoint());

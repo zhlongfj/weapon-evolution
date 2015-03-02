@@ -16,7 +16,7 @@ public class FrozenStatus extends Status {
     }
 
     @Override
-    protected void attackReal(Player player1, Player player2) {
+    protected void delayAttackReal(Player player1, Player player2) {
         frozenTimes--;
         if (frozenTimes == 0) {
             out.println(player1.getName() + "冻得直哆嗦，没有击中" + player2.getName());

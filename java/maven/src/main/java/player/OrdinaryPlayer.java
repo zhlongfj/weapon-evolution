@@ -39,7 +39,7 @@ public class OrdinaryPlayer extends Player {
 
     @Override
     public void attack(Player player2) {
-        status.attack(this, player2);
+        status.delayAttack(this, player2);
         if (status.canAttack()) {
             player2.reduceHealthPoint(player2.retrieveHarmPoint(attackPoint));
             out.println(retrieveDescription(player2));
