@@ -26,7 +26,6 @@ public class FullPowerStatus extends Status{
 
     }
 
-    @Override
     public boolean canAttack() {
         return false;
     }

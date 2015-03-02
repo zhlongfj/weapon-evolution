@@ -36,6 +36,8 @@ public abstract class Status {
     }
 
     protected abstract void attackReal(Player player1, Player player2);
-    public abstract boolean canAttack();
+    public boolean canAttack() {
+        return true;
+    }
     public abstract String retrieveHarmDescription(Player player1, Player player2);
 }

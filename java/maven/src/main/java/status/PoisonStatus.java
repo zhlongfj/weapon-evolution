@@ -30,11 +30,6 @@ public class PoisonStatus extends Status {
     }
 
     @Override
-    public boolean canAttack() {
-        return true;
-    }
-
-    @Override
     public String retrieveHarmDescription(Player player1, Player player2) {
         return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,"
                 + player2.getName() + "中毒了,";
