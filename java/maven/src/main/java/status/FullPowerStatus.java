@@ -20,6 +20,10 @@ public class FullPowerStatus extends Status{
         return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
     }
 
+    public boolean canTriggerEffect() {
+        return random.nextInt(2) == 0 ? true : false;
+    }
+
     @Override
     protected void delayAttackReal(Player player1, Player player2) {
 

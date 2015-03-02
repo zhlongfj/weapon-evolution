@@ -15,6 +15,14 @@ public class FrozenStatus extends Status {
         times = 2;
     }
 
+    public boolean canAttack() {
+        return times != 0 ? true : false;
+    }
+
+    public boolean canTriggerEffect() {
+        return random.nextInt(2) == 0 ? true : false;
+    }
+
     @Override
     protected void delayAttackReal(Player player1, Player player2) {
         frozenTimes--;
@@ -24,11 +32,6 @@ public class FrozenStatus extends Status {
         } else {
             times++;
         }
-    }
-
-    @Override
-    public boolean canAttack() {
-        return times != 0 ? true : false;
     }
 
     @Override

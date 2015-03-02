@@ -35,7 +35,10 @@ public abstract class Status {
         return true;
     }
 
+    public boolean canTriggerEffect() {
+        return true;
+    }
+
     protected abstract void delayAttackReal(Player player1, Player player2);
-    //public abstract boolean canTriggerEffect();
     public abstract String retrieveHarmDescription(Player player1, Player player2);
 }

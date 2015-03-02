@@ -1,14 +1,17 @@
 package weapon;
 
 import player.Player;
-import status.Status;
+import status.NormalStatus;
+
+import java.io.PrintStream;
+import java.util.Random;
 
 /**
  * Created by zhl on 15/2/12.
  */
 public class NoWeapon extends Weapon {
-    public NoWeapon(Status status) {
-        super(status);
+    public NoWeapon(PrintStream out, Random random) {
+        status = new NormalStatus(0, out, random);
     }
 
     @Override

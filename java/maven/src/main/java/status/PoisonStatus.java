@@ -17,6 +17,10 @@ public class PoisonStatus extends Status {
         harmPoint = 2;
     }
 
+    public boolean canTriggerEffect() {
+        return random.nextInt(2) == 0 ? true : false;
+    }
+
     @Override
     protected void delayAttackReal(Player player1, Player player2) {
         player1.reduceHealthPoint(harmPoint);

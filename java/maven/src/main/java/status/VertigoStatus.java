@@ -19,10 +19,9 @@ public class VertigoStatus extends Status{
         out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
     }
 
-//    @Override
-//    public boolean canTriggerEffect() {
-//        return false;
-//    }
+    public boolean canTriggerEffect() {
+        return random.nextInt(2) == 0 ? true : false;
+    }
 
     public boolean canAttack() {
         return times < 0 ? true : false;

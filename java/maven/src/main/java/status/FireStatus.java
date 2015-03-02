@@ -18,6 +18,14 @@ public class FireStatus extends Status {
         this.delayHarmPoint = 2;
     }
 
+    public boolean canAttack() {
+        return times != 0 ? true : false;
+    }
+
+    public boolean canTriggerEffect() {
+        return random.nextInt(2) == 0 ? true : false;
+    }
+
     @Override
     protected void delayAttackReal(Player player1, Player player2) {
         player1.reduceHealthPoint(delayHarmPoint);

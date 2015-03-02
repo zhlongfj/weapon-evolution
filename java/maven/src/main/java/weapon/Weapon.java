@@ -7,12 +7,8 @@ import status.Status;
  * Created by zhl on 15/2/13.
  */
 public abstract class Weapon {
-    protected Status status;
 
-    protected Weapon(Status status)
-    {
-        this.status = status;
-    }
+    protected Status status;
 
     public abstract String getName();
     public String attackAndReturnDescription(Player player1, Player player2) {
