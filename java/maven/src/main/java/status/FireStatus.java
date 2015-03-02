@@ -19,11 +19,6 @@ public class FireStatus extends Status {
     }
 
     @Override
-    public int retrieveHarmPoint(Player player1, Player player2) {
-        return retrieveBaseHarmPoint(player1, player2);
-    }
-
-    @Override
     protected void attackReal(Player player1, Player player2) {
         player1.reduceHealthPoint(delayHarmPoint);
         out.println(player1.getName() + "受到" + delayHarmPoint + "点火焰伤害,"

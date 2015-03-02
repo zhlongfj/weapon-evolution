@@ -16,11 +16,6 @@ public class NormalStatus extends Status {
     }
 
     @Override
-    public int retrieveHarmPoint(Player player1, Player player2) {
-        return retrieveBaseHarmPoint(player1, player2);
-    }
-
-    @Override
     protected void attackReal(Player player1, Player player2) {
         return;
     }

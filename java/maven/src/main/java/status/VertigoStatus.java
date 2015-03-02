@@ -15,11 +15,6 @@ public class VertigoStatus extends Status{
     }
 
     @Override
-    public int retrieveHarmPoint(Player player1, Player player2) {
-        return retrieveBaseHarmPoint(player1, player2);
-    }
-
-    @Override
     protected void attackReal(Player player1, Player player2) {
         out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
     }

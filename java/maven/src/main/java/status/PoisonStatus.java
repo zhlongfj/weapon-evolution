@@ -18,11 +18,6 @@ public class PoisonStatus extends Status {
     }
 
     @Override
-    public int retrieveHarmPoint(Player player1, Player player2) {
-        return retrieveBaseHarmPoint(player1, player2);
-    }
-
-    @Override
     protected void attackReal(Player player1, Player player2) {
         player1.reduceHealthPoint(harmPoint);
         out.println(player1.getName() + "受到" + harmPoint + "点毒性伤害,"
