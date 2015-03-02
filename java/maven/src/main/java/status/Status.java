@@ -27,13 +27,7 @@ public abstract class Status {
         }
     }
 
-    //public abstract boolean canTriggerEffect();
-
     public int retrieveHarmPoint(Player player1, Player player2) {
-        return retrieveBaseHarmPoint(player1, player2);
-    }
-
-    protected int retrieveBaseHarmPoint(Player player1, Player player2) {
         return player2.retrieveHarmPoint(player1.getAttackPoint() + attackPoint);
     }
 
@@ -42,6 +36,6 @@ public abstract class Status {
     }
 
     protected abstract void delayAttackReal(Player player1, Player player2);
-
+    //public abstract boolean canTriggerEffect();
     public abstract String retrieveHarmDescription(Player player1, Player player2);
 }

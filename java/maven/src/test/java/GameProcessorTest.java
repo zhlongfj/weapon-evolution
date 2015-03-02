@@ -273,6 +273,25 @@ public class GameProcessorTest {
     }
 
     @Test
+    public void should_delay_attack_not_harm_when_cycle_times_is_zero() {
+        Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("毒剑", new PoisonStatus(out, random)), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 5);
+
+        player1.attack(player2);
+        player2.attack(player1);
+        player2.attack(player1);
+        player2.attack(player1);
+
+        InOrder inOrder = inOrder(out);
+        verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了10点伤害,李四中毒了,李四剩余生命:10");
+        verify(out).println("李四受到2点毒性伤害,李四剩余生命:8");
+        verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:9");
+        verify(out).println("李四受到2点毒性伤害,李四剩余生命:6");
+        verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:8");
+        verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:7");
+    }
+
+    @Test
     public void should_print_attacked_player_is_fired_when_attack_player_use_ice_sword() {
         Player player1 = new Soldier(out, "张三", 10, 8, new SoldierWeapon("火焰剑", new FireStatus(out, random)), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);

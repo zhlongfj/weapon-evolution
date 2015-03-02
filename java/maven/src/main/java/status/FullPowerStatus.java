@@ -17,7 +17,7 @@ public class FullPowerStatus extends Status{
     }
 
     public int retrieveHarmPoint(Player player1, Player player2) {
-        return retrieveBaseHarmPoint(player1, player2) * attackPointTimes;
+        return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
     }
 
     @Override
