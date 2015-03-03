@@ -9,12 +9,14 @@ import java.util.Random;
  * Created by zhl on 15/2/27.
  */
 public class PoisonStatus extends Status {
+    private final int initialDelayHarmPoint;
     private int delayHarmPoint;
 
     public PoisonStatus(PrintStream out, Random random) {
         super(out, random, 2);
         initState(2, "中毒了", 2);
-        delayHarmPoint = 2;
+        initialDelayHarmPoint = 2;
+        delayHarmPoint = initialDelayHarmPoint;
     }
 
     public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
@@ -29,14 +31,15 @@ public class PoisonStatus extends Status {
                     + player1.getName() + "剩余生命:" + player1.getHealthPoint());
         } else {
             times = initialEffectTimes;
+            delayHarmPoint = initialDelayHarmPoint;
             player1.setStatus(new NormalStatus(0, out, null));
         }
     }
 
     @Override
     public void cumulativeEffect(Status status) {
-        cumulativeTimes(status);
-        cumulativeAttackPoint(status);
+        times += initialEffectTimes;
+        delayHarmPoint += initialDelayHarmPoint;
     }
 
    }

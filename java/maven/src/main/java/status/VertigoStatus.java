@@ -34,6 +34,6 @@ public class VertigoStatus extends Status{
 
     @Override
     public void cumulativeEffect(Status status) {
-        cumulativeTimes(status);
+        times += initialEffectTimes;
     }
 }

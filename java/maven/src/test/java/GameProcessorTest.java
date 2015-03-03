@@ -446,4 +446,36 @@ public class GameProcessorTest {
         inOrder.verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:4");
         inOrder.verify(out).println("李四晕倒了,无法攻击,眩晕还剩:1轮");
     }
+
+    @Test
+    public void should_cumulative_effect_times_and_attack_point_when_effect_trigger_twice() {
+        Player player1 = new Soldier(out, "张三", 10, 1, new SoldierWeapon("毒剑", out, random), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 40, 5);
+        given(random.nextInt(2)).willReturn(0).willReturn(0).willReturn(1);
+
+        for (int i = 0; i < 5; i++) {
+            player1.attack(player2);
+            player2.attack(player1);
+        }
+
+        InOrder inOrder = inOrder(out);
+        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四中毒了,李四剩余生命:37");
+        inOrder.verify(out).println("李四受到2点毒性伤害,李四剩余生命:35");
+        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:9");
+
+        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四中毒了,李四剩余生命:32");
+        inOrder.verify(out).println("李四受到4点毒性伤害,李四剩余生命:28");
+        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:8");
+
+        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四剩余生命:25");
+        inOrder.verify(out).println("李四受到4点毒性伤害,李四剩余生命:21");
+        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:7");
+
+        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四剩余生命:18");
+        inOrder.verify(out).println("李四受到4点毒性伤害,李四剩余生命:14");
+        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:6");
+
+        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四剩余生命:11");
+        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:5");
+    }
 }

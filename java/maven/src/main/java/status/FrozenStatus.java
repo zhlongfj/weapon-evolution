@@ -39,6 +39,6 @@ public class FrozenStatus extends Status {
 
     @Override
     public void cumulativeEffect(Status status) {
-        cumulativeTimes(status);
+        times += initialEffectTimes;
     }
 }

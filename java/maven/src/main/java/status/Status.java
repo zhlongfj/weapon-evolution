@@ -12,6 +12,7 @@ public abstract class Status {
     protected PrintStream out;
     protected int times;
     protected int initialEffectTimes;
+    protected int initialDelayHarmPoint;
     protected Random random;
     private int attackPoint;
     protected String effect;
@@ -23,22 +24,6 @@ public abstract class Status {
         this.random = random;
         this.attackPoint = attackPoint;
         canTriggerEffect = false;
-    }
-
-    public int returnInitialEffectTimes() {
-        return initialEffectTimes;
-    }
-
-    public int returnAttackPoint() {
-        return attackPoint;
-    }
-
-    protected void cumulativeTimes(Status status) {
-        times += returnInitialEffectTimes();
-    }
-
-    protected void cumulativeAttackPoint(Status status) {
-        attackPoint += status.returnAttackPoint();
     }
 
     protected void initState(int times, String effect, int triggerEffectOdds) {
