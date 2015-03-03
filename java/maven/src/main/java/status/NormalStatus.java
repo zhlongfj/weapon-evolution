@@ -12,8 +12,7 @@ public class NormalStatus extends Status {
 
     public NormalStatus(int attackPoint, PrintStream out, Random random) {
         super(out, random, attackPoint);
-        times = 0;
-        effect = "";
+        initState(0, "", 0);
     }
 
     public boolean canTriggerEffect() {
@@ -21,7 +20,12 @@ public class NormalStatus extends Status {
     }
 
     @Override
-    protected void delayAttackReal(Player player1, Player player2) {
+    public void delayAttack(Player player1, Player player2) {
+        return;
+    }
+
+    @Override
+    public void cumulativeEffect(Status status) {
         return;
     }
 }

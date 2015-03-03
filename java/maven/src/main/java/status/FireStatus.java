@@ -14,10 +14,8 @@ public class FireStatus extends Status {
 
     public FireStatus(PrintStream out, Random random) {
         super(out, random, 2);
-        times = 2;
+        initState(2, "着火了", 2);
         this.delayHarmPoint = 2;
-        effect = "着火了";
-        triggerEffectOdds = 2;
     }
 
     public boolean canAttack() {
@@ -29,9 +27,20 @@ public class FireStatus extends Status {
     }
 
     @Override
-    protected void delayAttackReal(Player player1, Player player2) {
-        player1.reduceHealthPoint(delayHarmPoint);
-        out.println(player1.getName() + "受到" + delayHarmPoint + "点火焰伤害,"
-                + player1.getName() + "剩余生命:" + player1.getHealthPoint());
+    public void delayAttack(Player player1, Player player2) {
+        times--;
+        if (times >= 0) {
+            player1.reduceHealthPoint(delayHarmPoint);
+            out.println(player1.getName() + "受到" + delayHarmPoint + "点火焰伤害,"
+                    + player1.getName() + "剩余生命:" + player1.getHealthPoint());
+        } else {
+            //player1.setStatus();
+        }
+    }
+
+    @Override
+    public void cumulativeEffect(Status status) {
+        cumulativeTimes(status);
+        cumulativeAttackPoint(status);
     }
 }

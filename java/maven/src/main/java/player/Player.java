@@ -43,7 +43,12 @@ public abstract class Player {
     }
 
     public void setStatus(Status status) {
-        this.status = status;
+        if (status.getClass() == this.status.getClass()) {
+            this.status.cumulativeEffect(status);
+        } else {
+            this.status = status;
+        }
+
     }
 
     public abstract boolean canAttack();

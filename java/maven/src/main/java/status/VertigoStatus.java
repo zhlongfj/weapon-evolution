@@ -11,14 +11,17 @@ import java.util.Random;
 public class VertigoStatus extends Status{
     public VertigoStatus(PrintStream out, Random random) {
         super(out, random, 2);
-        times = 2;
-        effect = "晕倒了";
-        triggerEffectOdds = 2;
+        initState(2, "晕倒了", 2);
     }
 
     @Override
-    protected void delayAttackReal(Player player1, Player player2) {
-        out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
+    public void delayAttack(Player player1, Player player2) {
+        times--;
+        if (times >= 0) {
+            out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
+        } else {
+            //player1.setStatus();
+        }
     }
 
     public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
@@ -29,4 +32,8 @@ public class VertigoStatus extends Status{
         return times < 0 ? true : false;
     }
 
+    @Override
+    public void cumulativeEffect(Status status) {
+        cumulativeTimes(status);
+    }
 }
