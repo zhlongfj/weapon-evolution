@@ -48,7 +48,6 @@ public abstract class Player {
         } else {
             this.status = status;
         }
-
     }
 
     public abstract boolean canAttack();

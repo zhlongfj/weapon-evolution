@@ -23,13 +23,13 @@ public class PoisonStatus extends Status {
 
     @Override
     public void delayAttack(Player player1, Player player2) {
-        times--;
-        if (times >= 0) {
+        if (times-- > 0) {
             player1.reduceHealthPoint(delayHarmPoint);
             out.println(player1.getName() + "受到" + delayHarmPoint + "点毒性伤害,"
                     + player1.getName() + "剩余生命:" + player1.getHealthPoint());
         } else {
-            //player1.setStatus();
+            times = initialEffectTimes;
+            player1.setStatus(new NormalStatus(0, out, null));
         }
     }
 

@@ -25,17 +25,15 @@ public class FrozenStatus extends Status {
 
     @Override
     public void delayAttack(Player player1, Player player2) {
-        times--;
-        if (times >= 0) {
-            frozenTimes--;
-            if (frozenTimes == 0) {
+        frozenTimes--;
+        if (frozenTimes == 0) {
+            frozenTimes = 2;
+            if (times-- > 0) {
                 out.println(player1.getName() + "冻得直哆嗦，没有击中" + player2.getName());
-                frozenTimes = 2;
             } else {
-                times++;
+                times = initialEffectTimes;
+                player1.setStatus(new NormalStatus(0, out, null));
             }
-        } else {
-            //player1.setStatus();
         }
     }
 

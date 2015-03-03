@@ -424,4 +424,26 @@ public class GameProcessorTest {
         inOrder.verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四剩余生命:4");
         inOrder.verify(out).println("李四晕倒了,无法攻击,眩晕还剩:0轮");
     }
+
+    @Test
+    public void should_print_vertigo_effect_when_effect_is_out_then_trigger_again() {
+        Player player1 = new Soldier(out, "张三", 20, 2, new SoldierWeapon("晕锤", out, random), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
+        given(random.nextInt(2)).willReturn(0).willReturn(1).willReturn(1).willReturn(0);
+
+        for (int i = 0; i < 4; i++) {
+            player1.attack(player2);
+            player2.attack(player1);
+        }
+
+        InOrder inOrder = inOrder(out);
+        inOrder.verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:16");
+        inOrder.verify(out).println("李四晕倒了,无法攻击,眩晕还剩:1轮");
+        inOrder.verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四剩余生命:12");
+        inOrder.verify(out).println("李四晕倒了,无法攻击,眩晕还剩:0轮");
+        inOrder.verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四剩余生命:8");
+        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了5点伤害,张三剩余生命:15");
+        inOrder.verify(out).println("战士张三用晕锤攻击了普通人李四,李四受到了4点伤害,李四晕倒了,李四剩余生命:4");
+        inOrder.verify(out).println("李四晕倒了,无法攻击,眩晕还剩:1轮");
+    }
 }

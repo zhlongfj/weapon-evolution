@@ -16,11 +16,11 @@ public class VertigoStatus extends Status{
 
     @Override
     public void delayAttack(Player player1, Player player2) {
-        times--;
-        if (times >= 0) {
+        if (times-- > 0) {
             out.println(player1.getName() + "晕倒了,无法攻击,眩晕还剩:" + times + "轮");
         } else {
-            //player1.setStatus();
+            times = initialEffectTimes;
+            player1.setStatus(new NormalStatus(0, out, null));
         }
     }
 
