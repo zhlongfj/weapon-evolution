@@ -1,9 +1,8 @@
 package weapon;
 
-import status.*;
+import status.Status;
 
 import java.io.PrintStream;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -15,19 +14,7 @@ public class SoldierWeapon extends Weapon{
     private Map<String, Status> states;
 
     public SoldierWeapon(String name, PrintStream out, Random random) {
-        initStates(out, random);
-        status = states.get(name);
         this.name = "用" + name;
-    }
-
-    private void initStates(PrintStream out, Random random) {
-        states = new HashMap<String, Status>();
-        states.put("优质木棒", new StickStatus(out, random));
-        states.put("毒剑", new PoisonStatus(out, random));
-        states.put("火焰剑", new FireStatus(out, random));
-        states.put("寒冰剑", new FrozenStatus(out, random));
-        states.put("晕锤", new VertigoStatus(out, random));
-        states.put("利剑", new FullPowerStatus(out, random));
     }
 
     @Override

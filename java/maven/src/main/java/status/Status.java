@@ -41,4 +41,28 @@ public abstract class Status {
         return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,";
     }
 
+    public String attackAndReturnDescription(Player player1, Player player2, String weaponName) {
+        if (canTriggerEffect()) {
+            player2.setStatus(this);
+        }
+        reduceHealthPoint(player1, player2);
+        return returnDescription(player1, player2, weaponName);
+    }
+
+    public void reduceHealthPoint(Player player1, Player player2) {
+        player2.reduceHealthPoint(retrieveHarmPoint(player1, player2));
+    }
+
+    public String returnDescription(Player player1, Player player2, String weaponName) {
+        return returnAttackDescription(player1, player2, weaponName)
+                + retrieveHarmAndEffectDescription(player1, player2) + returnAttackResult(player2);
+    }
+
+    private String returnAttackDescription(Player player1, Player player2, String weaponName) {
+        return player1.getNameWithProfession() + weaponName + "攻击了" + player2.getNameWithProfession() + ",";
+    }
+
+    private String returnAttackResult(Player player) {
+        return player.getName() + "剩余生命:" + player.getHealthPoint();
+    }
 }

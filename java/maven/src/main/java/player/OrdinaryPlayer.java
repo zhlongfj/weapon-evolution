@@ -39,11 +39,16 @@ public class OrdinaryPlayer extends Player {
 
     @Override
     public void attack(Player player2) {
-        status.delayAttack(this, player2);
-        if (status.canAttack()) {
-            player2.reduceHealthPoint(player2.retrieveHarmPoint(attackPoint));
-            String name = retrieveDescription(player2);
-            out.println(retrieveDescription(player2));
+        attackedStatus.delayAttack(this, player2);
+        if (attackedStatus.canAttack()) {
+            out.println(attackStatus.attackAndReturnDescription(this, player2, ""));
         }
+
+//        attackedStatus.delayAttack(this, player2);
+//        if (attackedStatus.canAttack()) {
+//            player2.reduceHealthPoint(player2.retrieveHarmPoint(attackPoint));
+//            String name = retrieveDescription(player2);
+//            out.println(retrieveDescription(player2));
+//        }
     }
 }
