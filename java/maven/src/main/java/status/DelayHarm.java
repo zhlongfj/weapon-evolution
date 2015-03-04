@@ -35,7 +35,7 @@ public class DelayHarm {
     }
 
     public boolean effectIsOver() {
-        return times == 0 ? true : false;
+        return times < 0 ? true : false;
     }
 
     public int returnHarmPoint() {
