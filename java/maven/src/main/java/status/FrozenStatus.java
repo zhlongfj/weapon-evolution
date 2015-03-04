@@ -10,25 +10,21 @@ import java.util.Random;
  */
 public class FrozenStatus extends Status {
     private final EffectTrigger effectTrigger;
-    private final DelayHarm delayHarm;
+    private final DelayEffect delayEffect;
     private int attackTimes;
     private PrintStream out;
 
     public FrozenStatus(PrintStream out, Random random, String weaponName) {
         super(out, 2, "用" + weaponName);
         this.out = out;
-        delayHarm = new DelayHarm(2, 0);
+        delayEffect = new DelayEffect(2, 0);
         effectTrigger = new EffectTrigger(random, 2, "冻僵了");
         attackTimes = 0;
     }
 
-    public String retrieveHarmDescription(Player player1, Player player2) {
-        return super.retrieveHarmDescription(player1, player2) + effectTrigger.retrieveEffectDescription(player2);
-    }
-
     @Override
     public void delayAttack(Player player1, Player player2) {
-        if (delayHarm.delayAttack(player1)) {
+        if (delayEffect.delayAttack(player1)) {
             attackTimes++;
             if (!canAttack()) {
                 out.println(retrieveEffectString(player1, player2));
@@ -36,27 +32,23 @@ public class FrozenStatus extends Status {
         }
     }
 
-    public boolean canAttack() {
-        return attackTimes % 2 == 0 ? false : true;
-    }
-
     private String retrieveEffectString(Player player1, Player player2) {
         return player1.getName() + "冻得直哆嗦，没有击中" + player2.getName();
     }
 
-    @Override
-    protected void reset() {
-        delayHarm.reset();
-        attackTimes = 0;
+    public boolean canAttack() {
+        return attackTimes % 2 == 0 ? false : true;
     }
 
-    @Override
-    protected void cumulativeEffect(Status status) {
-        delayHarm.cumulativeEffect();
+    public void attack(Player player1, Player player2) {
+        effectTrigger.trigger();
+        if (effectTrigger.hasTriggerEffect()) {
+            delayEffect.attack(player2, this);
+        }
+        super.attack(player1, player2);
     }
 
-    @Override
-    protected boolean canTriggerEffect() {
-        return effectTrigger.canTriggerEffect();
+    protected String retrieveHarmDescription(Player player1, Player player2) {
+        return super.retrieveHarmDescription(player1, player2) + effectTrigger.retrieveEffectDescription(player2);
     }
 }

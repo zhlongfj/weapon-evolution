@@ -19,13 +19,12 @@ public class EffectTrigger {
         this.effectString = effectString;
     }
 
-    public boolean canTriggerEffect() {
+    public void trigger() {
         if (random.nextInt(bound) == 0) {
             triggerEffect = true;
         } else {
             triggerEffect = false;
         }
-        return  triggerEffect;
     }
 
     public boolean hasTriggerEffect() {

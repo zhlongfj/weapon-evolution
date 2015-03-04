@@ -17,36 +17,25 @@ public class FullPowerStatus extends Status{
         effectTrigger = new EffectTrigger(random, 2, "发动了全力一击");
     }
 
-    protected int retrieveHarmPoint(Player player1, Player player2) {
-        if (effectTrigger.hasTriggerEffect()) {
-            return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
-        } else {
-            return super.retrieveHarmPoint(player1, player2);
-        }
-
-    }
-
     @Override
     public void delayAttack(Player player1, Player player2) {
         return;
+    }
+
+    public void attack(Player player1, Player player2) {
+        effectTrigger.trigger();
+        super.attack(player1, player2);
     }
 
     protected String retrieveHarmDescription(Player player1, Player player2) {
         return effectTrigger.retrieveEffectDescription(player1) + super.retrieveHarmDescription(player1, player2);
     }
 
-    @Override
-    protected void reset() {
-        return;
-    }
-
-    @Override
-    protected void cumulativeEffect(Status status) {
-        return;
-    }
-
-    @Override
-    protected boolean canTriggerEffect() {
-        return effectTrigger.canTriggerEffect();
+    protected int retrieveHarmPoint(Player player1, Player player2) {
+        if (effectTrigger.hasTriggerEffect()) {
+            return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
+        } else {
+            return super.retrieveHarmPoint(player1, player2);
+        }
     }
 }

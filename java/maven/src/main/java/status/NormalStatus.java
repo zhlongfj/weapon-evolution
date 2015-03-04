@@ -16,19 +16,4 @@ public class NormalStatus extends Status{
     public void delayAttack(Player player1, Player player2) {
         return;
     }
-
-    @Override
-    protected boolean canTriggerEffect() {
-        return false;
-    }
-
-    @Override
-    protected void cumulativeEffect(Status status) {
-        return;
-    }
-
-    @Override
-    protected void reset() {
-        return;
-    }
 }

@@ -25,27 +25,9 @@ public abstract class Status {
     public abstract void delayAttack(Player player1, Player player2);
 
     public void attack(Player player1, Player player2) {
-        if (canTriggerEffect()) {
-            setStatus(player2);
-        }
         reduceHealthPoint(player1, player2);
         printAttack(player1, player2);
     }
-
-    protected abstract boolean canTriggerEffect();
-
-    private void setStatus(Player player) {
-        Status status = player.returnAttackedStatus();
-        if (this.getClass() == status.getClass()) {
-            this.cumulativeEffect(status);
-        } else {
-            this.reset();
-        }
-        player.setAttackedStatus(this);
-    }
-
-    protected abstract void cumulativeEffect(Status status);
-    protected abstract void reset();
 
     private void reduceHealthPoint(Player player1, Player player2) {
         player2.reduceHealthPoint(retrieveHarmPoint(player1, player2));
