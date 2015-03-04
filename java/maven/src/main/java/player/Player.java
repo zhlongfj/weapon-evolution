@@ -21,7 +21,7 @@ public abstract class Player {
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPoint = attackPoint;
-        status = new NormalStatus(0, out, null);
+        status = new NormalStatus();
     }
 
     public abstract void attack(Player player2);
@@ -46,6 +46,7 @@ public abstract class Player {
         if (status.getClass() == this.status.getClass()) {
             this.status.cumulativeEffect(status);
         } else {
+            status.reset();
             this.status = status;
         }
     }

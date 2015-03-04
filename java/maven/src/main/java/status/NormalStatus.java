@@ -2,21 +2,12 @@ package status;
 
 import player.Player;
 
-import java.io.PrintStream;
-import java.util.Random;
-
 /**
- * Created by zhl on 15/2/27.
+ * Created by zhl on 15/3/3.
  */
-public class NormalStatus extends Status {
-
-    public NormalStatus(int attackPoint, PrintStream out, Random random) {
-        super(out, random, attackPoint);
-        initState(0, "", 0);
-    }
-
-    public boolean canTriggerEffect() {
-        return false;
+public class NormalStatus extends Status{
+    public NormalStatus() {
+        super(0);
     }
 
     @Override
@@ -25,7 +16,17 @@ public class NormalStatus extends Status {
     }
 
     @Override
+    public void reset() {
+        return;
+    }
+
+    @Override
     public void cumulativeEffect(Status status) {
         return;
+    }
+
+    @Override
+    public boolean canTriggerEffect() {
+        return true;
     }
 }

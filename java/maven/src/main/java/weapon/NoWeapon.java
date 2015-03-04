@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class NoWeapon extends Weapon {
     public NoWeapon(PrintStream out, Random random) {
-        status = new NormalStatus(0, out, random);
+        status = new NormalStatus();
     }
 
     @Override

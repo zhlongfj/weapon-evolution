@@ -42,6 +42,7 @@ public class OrdinaryPlayer extends Player {
         status.delayAttack(this, player2);
         if (status.canAttack()) {
             player2.reduceHealthPoint(player2.retrieveHarmPoint(attackPoint));
+            String name = retrieveDescription(player2);
             out.println(retrieveDescription(player2));
         }
     }

@@ -10,9 +10,11 @@ import java.util.Random;
  */
 public class FullPowerStatus extends Status{
     private final int attackPointTimes = 3;
+    private final EffectTrigger effectTrigger;
+
     public FullPowerStatus(PrintStream out, Random random) {
-        super(out, random, 2);
-        initState(0, "发动了全力一击", 2);
+        super(2);
+        effectTrigger = new EffectTrigger(random, 2, "发动了全力一击");
     }
 
     public int retrieveHarmPoint(Player player1, Player player2) {
@@ -25,11 +27,21 @@ public class FullPowerStatus extends Status{
     }
 
     public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
-        return retrieveEffectDescription(player1) + retrieveHarmDescription(player1, player2);
+        return effectTrigger.retrieveEffectDescription(player1) + retrieveHarmDescription(player1, player2);
+    }
+
+    @Override
+    public void reset() {
+        return;
     }
 
     @Override
     public void cumulativeEffect(Status status) {
         return;
     }
-  }
+
+    @Override
+    public boolean canTriggerEffect() {
+        return effectTrigger.canTriggerEffect();
+    }
+}

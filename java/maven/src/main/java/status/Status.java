@@ -10,27 +10,11 @@ import java.util.Random;
  */
 public abstract class Status {
     protected PrintStream out;
-    protected int times;
-    protected int initialEffectTimes;
-    protected int initialDelayHarmPoint;
     protected Random random;
     private int attackPoint;
-    protected String effect;
-    private boolean canTriggerEffect;
-    protected int triggerEffectOdds;
 
-    protected Status(PrintStream out, Random random, int attackPoint) {
-        this.out = out;
-        this.random = random;
+    protected Status(int attackPoint) {
         this.attackPoint = attackPoint;
-        canTriggerEffect = false;
-    }
-
-    protected void initState(int times, String effect, int triggerEffectOdds) {
-        initialEffectTimes = times;
-        this.times = initialEffectTimes;
-        this.effect = effect;
-        this.triggerEffectOdds = triggerEffectOdds;
     }
 
     public int retrieveHarmPoint(Player player1, Player player2) {
@@ -41,18 +25,13 @@ public abstract class Status {
         return true;
     }
 
-    public boolean canTriggerEffect() {
-        if (random.nextInt(triggerEffectOdds) == 0) {
-            canTriggerEffect = true;
-        } else {
-            canTriggerEffect = false;
-        }
-        return  canTriggerEffect;
-    }
+    public abstract boolean canTriggerEffect();
 
     public abstract void delayAttack(Player player1, Player player2);
 
     public abstract void cumulativeEffect(Status status);
+
+    public abstract void reset();
 
     public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
         return retrieveHarmDescription(player1, player2);
@@ -60,10 +39,6 @@ public abstract class Status {
 
     protected String retrieveHarmDescription(Player player1, Player player2) {
         return player2.getName() + "受到了" + retrieveHarmPoint(player1, player2) + "点伤害,";
-    }
-
-    protected String retrieveEffectDescription(Player player) {
-        return canTriggerEffect ? player.getName() + effect + "," : "";
     }
 
 }

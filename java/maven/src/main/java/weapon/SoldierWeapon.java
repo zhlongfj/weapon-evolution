@@ -22,7 +22,7 @@ public class SoldierWeapon extends Weapon{
 
     private void initStates(PrintStream out, Random random) {
         states = new HashMap<String, Status>();
-        states.put("优质木棒", new NormalStatus(4, out, random));
+        states.put("优质木棒", new StickStatus(out, random));
         states.put("毒剑", new PoisonStatus(out, random));
         states.put("火焰剑", new FireStatus(out, random));
         states.put("寒冰剑", new FrozenStatus(out, random));
