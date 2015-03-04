@@ -3,24 +3,14 @@ package status;
 import player.Player;
 
 import java.io.PrintStream;
-import java.util.Random;
 
 /**
  * Created by zhl on 15/2/27.
  */
 public class StickStatus extends Status {
 
-    public StickStatus(PrintStream out, Random random) {
-        super(4);
-    }
-
-    public boolean canTriggerEffect() {
-        return false;
-    }
-
-    @Override
-    public void reset() {
-        return;
+    public StickStatus(PrintStream out, String weaponName) {
+        super(out, 4, "用" + weaponName);
     }
 
     @Override
@@ -29,7 +19,17 @@ public class StickStatus extends Status {
     }
 
     @Override
-    public void cumulativeEffect(Status status) {
+    protected boolean canTriggerEffect() {
+        return false;
+    }
+
+    @Override
+    protected void cumulativeEffect(Status status) {
+        return;
+    }
+
+    @Override
+    protected void reset() {
         return;
     }
 }

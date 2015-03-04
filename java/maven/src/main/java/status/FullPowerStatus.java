@@ -12,13 +12,18 @@ public class FullPowerStatus extends Status{
     private final int attackPointTimes = 3;
     private final EffectTrigger effectTrigger;
 
-    public FullPowerStatus(PrintStream out, Random random) {
-        super(2);
+    public FullPowerStatus(PrintStream out, Random random, String weaponName) {
+        super(out, 2, "用" + weaponName);
         effectTrigger = new EffectTrigger(random, 2, "发动了全力一击");
     }
 
-    public int retrieveHarmPoint(Player player1, Player player2) {
-        return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
+    protected int retrieveHarmPoint(Player player1, Player player2) {
+        if (effectTrigger.hasTriggerEffect()) {
+            return super.retrieveHarmPoint(player1, player2) * attackPointTimes;
+        } else {
+            return super.retrieveHarmPoint(player1, player2);
+        }
+
     }
 
     @Override
@@ -26,22 +31,22 @@ public class FullPowerStatus extends Status{
         return;
     }
 
-    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
-        return effectTrigger.retrieveEffectDescription(player1) + retrieveHarmDescription(player1, player2);
+    protected String retrieveHarmDescription(Player player1, Player player2) {
+        return effectTrigger.retrieveEffectDescription(player1) + super.retrieveHarmDescription(player1, player2);
     }
 
     @Override
-    public void reset() {
+    protected void reset() {
         return;
     }
 
     @Override
-    public void cumulativeEffect(Status status) {
+    protected void cumulativeEffect(Status status) {
         return;
     }
 
     @Override
-    public boolean canTriggerEffect() {
+    protected boolean canTriggerEffect() {
         return effectTrigger.canTriggerEffect();
     }
 }

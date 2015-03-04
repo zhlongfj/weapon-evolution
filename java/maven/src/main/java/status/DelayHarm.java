@@ -25,7 +25,7 @@ public class DelayHarm {
             player1.reduceHealthPoint(harmPoint);
             return true;
         } else {
-            player1.setStatus(new NormalStatus());
+            player1.setNormalState();
             return false;
         }
     }

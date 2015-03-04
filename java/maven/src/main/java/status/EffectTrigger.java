@@ -28,6 +28,9 @@ public class EffectTrigger {
         return  triggerEffect;
     }
 
+    public boolean hasTriggerEffect() {
+        return triggerEffect;
+    }
     protected String retrieveEffectDescription(Player player) {
         return triggerEffect ? player.getName() + effectString + "," : "";
     }

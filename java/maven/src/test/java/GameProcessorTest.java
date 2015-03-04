@@ -34,7 +34,7 @@ public class GameProcessorTest {
         armor = new SoldierArmor("铠甲", 4);
         random = mock(Random.class);
         given(random.nextInt(2)).willReturn(0);
-        stick = new SoldierWeapon("优质木棒", out, random);
+        stick = new SoldierWeapon("优质木棒");
         noWeapon = new NoWeapon();
     }
 
@@ -251,7 +251,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_poison_when_attack_player_use_poison_sword() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("毒剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("毒剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -262,7 +262,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_harm_point_when_poisoned_player_attack() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("毒剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("毒剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -276,7 +276,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_delay_attack_not_harm_when_cycle_times_is_zero() {
-        Player player1 = new Soldier(out, random, "张三", 10, 2, new SoldierWeapon("毒剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 2, new SoldierWeapon("毒剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 5);
         player1.attack(player2);
         player2.attack(player1);
@@ -296,7 +296,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_delay_attack_not_harm_when_effect_is_not_triggered() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("毒剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("毒剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 5);
         given(random.nextInt(2)).willReturn(1);
 
@@ -310,7 +310,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_fired_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("火焰剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("火焰剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -321,7 +321,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_harm_point_when_fired_player_attack() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("火焰剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("火焰剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -335,7 +335,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_frozen_when_attack_player_use_ice_sword() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("寒冰剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("寒冰剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -345,9 +345,8 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_miss_when_frozen_player_attack() {
-        Player player1 = new Soldier(out, random, "张三", 20, 8, new SoldierWeapon("寒冰剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 20, 8, new SoldierWeapon("寒冰剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 30, 9);
-        //given(random.nextInt(2)).willReturn(0).willReturn(1);
         player1.attack(player2);
         player2.attack(player1);
         player1.attack(player2);
@@ -362,7 +361,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_vertigo_when_attack_player_use_vertigo_hammer() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("晕锤", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("晕锤"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -372,9 +371,8 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_vertigo_when_vertigo_player_attack() {
-        Player player1 = new Soldier(out, random, "张三", 20, 2, new SoldierWeapon("晕锤", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 20, 2, new SoldierWeapon("晕锤"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
-        given(random.nextInt(2)).willReturn(0).willReturn(0).willReturn(1).willReturn(1);
 
         player1.attack(player2);
         player2.attack(player1);
@@ -386,7 +384,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_3_times_harm_when_attack_player_use_sharp_sword() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("利剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("利剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
 
         player1.attack(player2);
@@ -396,7 +394,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_attacked_player_is_3_times_harm_when_attack_player_use_sharp_sword_attack_soldier() {
-        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("利剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("利剑"), armor);
         Player player2 = new Soldier(out, random, "李四", 20, 9, stick, armor);
 
         player1.attack(player2);
@@ -405,8 +403,19 @@ public class GameProcessorTest {
     }
 
     @Test
+    public void should_no_full_power_when_effect_not_trigger() {
+        Player player1 = new Soldier(out, random, "张三", 10, 8, new SoldierWeapon("利剑"), armor);
+        Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
+        given(random.nextInt(2)).willReturn(1);
+
+        player1.attack(player2);
+
+        verify(out).println("战士张三用利剑攻击了普通人李四,李四受到了10点伤害,李四剩余生命:10");
+    }
+
+    @Test
     public void should_vertigo_effect_cumulative_when_effect_trigger_twice() {
-        Player player1 = new Soldier(out, random, "张三", 20, 2, new SoldierWeapon("晕锤", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 20, 2, new SoldierWeapon("晕锤"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
         given(random.nextInt(2)).willReturn(0).willReturn(0).willReturn(1).willReturn(1);
 
@@ -428,7 +437,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_print_vertigo_effect_when_effect_is_out_then_trigger_again() {
-        Player player1 = new Soldier(out, random, "张三", 20, 2, new SoldierWeapon("晕锤", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 20, 2, new SoldierWeapon("晕锤"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 20, 9);
         given(random.nextInt(2)).willReturn(0).willReturn(1).willReturn(1).willReturn(0);
 
@@ -450,7 +459,7 @@ public class GameProcessorTest {
 
     @Test
     public void should_cumulative_effect_times_and_attack_point_when_effect_trigger_twice() {
-        Player player1 = new Soldier(out, random, "张三", 10, 1, new SoldierWeapon("毒剑", out, random), armor);
+        Player player1 = new Soldier(out, random, "张三", 10, 1, new SoldierWeapon("毒剑"), armor);
         Player player2 = new OrdinaryPlayer(out, "李四", 40, 5);
         given(random.nextInt(2)).willReturn(0).willReturn(0).willReturn(1);
 

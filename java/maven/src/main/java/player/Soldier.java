@@ -6,6 +6,7 @@ import weapon.Weapon;
 
 import java.io.PrintStream;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -15,6 +16,7 @@ public class Soldier extends Player {
 
     private Weapon weapon;
     private Armor armor;
+    private Map<String, Status> states;
 
     public Soldier(PrintStream out, Random random, String name, int healthPoint, int attackPoint, Weapon weapon, Armor armor) {
         super(out, name, healthPoint, attackPoint);
@@ -27,35 +29,17 @@ public class Soldier extends Player {
 
     private void initStates(PrintStream out, Random random) {
         states = new HashMap<String, Status>();
-        states.put("", new NormalStatus());
-        states.put("用优质木棒", new StickStatus(out, random));
-        states.put("用毒剑", new PoisonStatus(out, random));
-        states.put("用火焰剑", new FireStatus(out, random));
-        states.put("用寒冰剑", new FrozenStatus(out, random));
-        states.put("用晕锤", new VertigoStatus(out, random));
-        states.put("用利剑", new FullPowerStatus(out, random));
-    }
-
-    @Override
-    public boolean canAttack() {
-        return healthPoint > 0 ? true : false;
-    }
-
-    @Override
-    public void reduceHealthPoint(int harmPoint) {
-        healthPoint -= harmPoint;
+        states.put("", new NormalStatus(out));
+        states.put("优质木棒", new StickStatus(out, "优质木棒"));
+        states.put("毒剑", new PoisonStatus(out, random, "毒剑"));
+        states.put("火焰剑", new FireStatus(out, random, "火焰剑"));
+        states.put("寒冰剑", new FrozenStatus(out, random, "寒冰剑"));
+        states.put("晕锤", new VertigoStatus(out, random, "晕锤"));
+        states.put("利剑", new FullPowerStatus(out, random, "利剑"));
     }
 
     @Override
     public int retrieveHarmPoint(int harmPoint) {
         return armor.retrieveHarmPoint(harmPoint);
-    }
-
-    @Override
-    public void attack(Player player2) {
-        attackedStatus.delayAttack(this, player2);
-        if (attackedStatus.canAttack()) {
-            out.println(attackStatus.attackAndReturnDescription(this, player2, weapon.getName()));
-        }
     }
 }

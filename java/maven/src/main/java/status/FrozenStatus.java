@@ -14,15 +14,15 @@ public class FrozenStatus extends Status {
     private int attackTimes;
     private PrintStream out;
 
-    public FrozenStatus(PrintStream out, Random random) {
-        super(2);
+    public FrozenStatus(PrintStream out, Random random, String weaponName) {
+        super(out, 2, "用" + weaponName);
         this.out = out;
         delayHarm = new DelayHarm(2, 0);
         effectTrigger = new EffectTrigger(random, 2, "冻僵了");
         attackTimes = 0;
     }
 
-    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+    public String retrieveHarmDescription(Player player1, Player player2) {
         return super.retrieveHarmDescription(player1, player2) + effectTrigger.retrieveEffectDescription(player2);
     }
 
@@ -45,18 +45,18 @@ public class FrozenStatus extends Status {
     }
 
     @Override
-    public void reset() {
+    protected void reset() {
         delayHarm.reset();
         attackTimes = 0;
     }
 
     @Override
-    public void cumulativeEffect(Status status) {
+    protected void cumulativeEffect(Status status) {
         delayHarm.cumulativeEffect();
     }
 
     @Override
-    public boolean canTriggerEffect() {
+    protected boolean canTriggerEffect() {
         return effectTrigger.canTriggerEffect();
     }
 }

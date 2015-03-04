@@ -4,7 +4,6 @@ import status.NormalStatus;
 import status.Status;
 
 import java.io.PrintStream;
-import java.util.Map;
 
 /**
  * Created by zhl on 15/2/12.
@@ -18,14 +17,13 @@ public abstract class Player {
     protected Status attackedStatus;
     protected Status attackStatus;
     private Status normalState;
-    protected Map<String, Status> states;
 
     public Player(PrintStream out, String name, int healthPoint, int attackPoint) {
         this.out = out;
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPoint = attackPoint;
-        normalState = new NormalStatus();
+        normalState = new NormalStatus(out);
         attackedStatus = normalState;
         attackStatus = normalState;
     }
@@ -34,7 +32,12 @@ public abstract class Player {
         attackedStatus = normalState;
     }
 
-    public abstract void attack(Player player2);
+    public void attack(Player player2) {
+        attackedStatus.delayAttack(this, player2);
+        if (canAttack()) {
+            attackStatus.attack(this, player2);
+        }
+    }
 
     public int getHealthPoint() {
         return healthPoint;
@@ -52,16 +55,25 @@ public abstract class Player {
         return profession + name;
     }
 
-    public void setStatus(Status status) {
-        if (status.getClass() == this.attackedStatus.getClass()) {
-            this.attackedStatus.cumulativeEffect(status);
-        } else {
-            status.reset();
-            this.attackedStatus = status;
-        }
+    public void setAttackedStatus(Status status) {
+        attackedStatus = status;
     }
 
-    public abstract boolean canAttack();
-    public abstract void reduceHealthPoint(int attackedPoint);
+    public Status returnAttackedStatus() {
+        return attackedStatus;
+    }
+
+    public boolean canAttack() {
+        return alive() && attackedStatus.canAttack() ? true : false;
+    }
+
+    private boolean alive() {
+        return healthPoint > 0 ? true : false;
+    }
+
+    public void reduceHealthPoint(int attackedPoint) {
+        healthPoint -= attackedPoint;
+    }
+
     public abstract int retrieveHarmPoint(int harmPoint);
 }

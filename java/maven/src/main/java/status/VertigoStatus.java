@@ -11,11 +11,9 @@ import java.util.Random;
 public class VertigoStatus extends Status{
     private final  DelayHarm delayHarm;
     private final EffectTrigger effectTrigger;
-    private PrintStream out;
 
-    public VertigoStatus(PrintStream out, Random random) {
-        super(2);
-        this.out = out;
+    public VertigoStatus(PrintStream out, Random random, String weaponName) {
+        super(out, 2, "用" + weaponName);
         delayHarm = new DelayHarm(2, 0);
         effectTrigger = new EffectTrigger(random, 2, "晕倒了");
     }
@@ -23,7 +21,6 @@ public class VertigoStatus extends Status{
     @Override
     public void delayAttack(Player player1, Player player2) {
         if (delayHarm.delayAttack(player1)) {
-            String name = retrieveEffectString(player1);
             out.println(retrieveEffectString(player1));
         }
     }
@@ -32,7 +29,7 @@ public class VertigoStatus extends Status{
         return player.getName() + "晕倒了,无法攻击,眩晕还剩:" + delayHarm.returnTimes() + "轮";
     }
 
-    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+    protected String retrieveHarmDescription(Player player1, Player player2) {
         return super.retrieveHarmDescription(player1, player2) + effectTrigger.retrieveEffectDescription(player2);
     }
 
@@ -41,17 +38,17 @@ public class VertigoStatus extends Status{
     }
 
     @Override
-    public void reset() {
+    protected void reset() {
         delayHarm.reset();
     }
 
     @Override
-    public boolean canTriggerEffect() {
+    protected boolean canTriggerEffect() {
         return effectTrigger.canTriggerEffect();
     }
 
     @Override
-    public void cumulativeEffect(Status status) {
+    protected void cumulativeEffect(Status status) {
         delayHarm.cumulativeEffect();
     }
 }

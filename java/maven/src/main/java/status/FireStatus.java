@@ -11,17 +11,14 @@ import java.util.Random;
 public class FireStatus extends Status {
     private final DelayHarm delayHarm;
     private final EffectTrigger effectTrigger;
-    private int delayHarmPoint;
-    private PrintStream out;
 
-    public FireStatus(PrintStream out, Random random) {
-        super(2);
-        this.out = out;
+    public FireStatus(PrintStream out, Random random, String weaponName) {
+        super(out, 2, "用" + weaponName);
         delayHarm = new DelayHarm(2, 2);
         effectTrigger = new EffectTrigger(random, 2, "着火了");
     }
 
-    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+    public String retrieveHarmDescription(Player player1, Player player2) {
         return super.retrieveHarmDescription(player1, player2) + effectTrigger.retrieveEffectDescription(player2);
     }
 
@@ -46,7 +43,6 @@ public class FireStatus extends Status {
     public void cumulativeEffect(Status status) {
         delayHarm.cumulativeEffect();
     }
-
 
     @Override
     public boolean canTriggerEffect() {

@@ -11,16 +11,14 @@ import java.util.Random;
 public class PoisonStatus extends Status {
     private final DelayHarm delayHarm;
     private final EffectTrigger effectTrigger;
-    private PrintStream out;
 
-    public PoisonStatus(PrintStream out, Random random) {
-        super(2);
-        this.out = out;
+    public PoisonStatus(PrintStream out, Random random, String weaponName) {
+        super(out, 2, "用" + weaponName);
         delayHarm = new DelayHarm(2, 2);
         effectTrigger = new EffectTrigger(random, 2, "中毒了");
     }
 
-    public String retrieveHarmAndEffectDescription(Player player1, Player player2) {
+    public String retrieveHarmDescription(Player player1, Player player2) {
         return super.retrieveHarmDescription(player1, player2) + effectTrigger.retrieveEffectDescription(player2);
     }
 
@@ -37,17 +35,17 @@ public class PoisonStatus extends Status {
     }
 
     @Override
-    public void reset() {
+    protected void reset() {
         delayHarm.reset();
     }
 
     @Override
-    public void cumulativeEffect(Status status) {
+    protected void cumulativeEffect(Status status) {
         delayHarm.cumulativeEffect();
     }
 
     @Override
-    public boolean canTriggerEffect() {
+    protected boolean canTriggerEffect() {
         return effectTrigger.canTriggerEffect();
     }
 }
