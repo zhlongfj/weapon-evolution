@@ -467,25 +467,19 @@ public class GameProcessorTest {
             player1.attack(player2);
             player2.attack(player1);
         }
+        player1.attack(player2);
+        player1.attack(player2);
+        player2.attack(player1);
+        player2.attack(player1);
+        player2.attack(player1);
+        player2.attack(player1);
+        player2.attack(player1);
 
         InOrder inOrder = inOrder(out);
         inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四中毒了,李四剩余生命:37");
         inOrder.verify(out).println("李四受到2点毒性伤害,李四剩余生命:35");
-        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:9");
-
-        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四中毒了,李四剩余生命:32");
         inOrder.verify(out).println("李四受到4点毒性伤害,李四剩余生命:28");
-        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:8");
-
-        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四剩余生命:25");
         inOrder.verify(out).println("李四受到4点毒性伤害,李四剩余生命:21");
-        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:7");
-
-        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四剩余生命:18");
         inOrder.verify(out).println("李四受到4点毒性伤害,李四剩余生命:14");
-        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:6");
-
-        inOrder.verify(out).println("战士张三用毒剑攻击了普通人李四,李四受到了3点伤害,李四剩余生命:11");
-        inOrder.verify(out).println("普通人李四攻击了战士张三,张三受到了1点伤害,张三剩余生命:5");
     }
 }
